@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Furnace</title>
+  <meta name="description" content="Furnace is a terminal-first agentic coding harness with local sessions, typed tools, and permission gates.">
+  <meta property="og:title" content="Furnace">
+  <meta property="og:description" content="A terminal-first agentic coding harness. Built in the open, run it in your repository.">
+  <link rel="icon" type="image/svg+xml" href="/furnace-wordmark.svg">
+  <!-- Preload all fonts -->
+  <link rel="preload" href="/fonts/DepartureMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/LibreBaskerville-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/LibreBaskerville-Regular-ext.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/LibreBaskerville-Italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/LibreBaskerville-Italic-ext.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/GeistMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/GeistMono-Regular-ext.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Preload assets -->
+  <link rel="preload" href="/cursor-light.svg" as="image">
+  <link rel="preload" href="/cursor-dark.svg" as="image">
+  <link rel="preload" href="/paper.png" as="image">
+  <!-- Self-hosted font stylesheets -->
+  <link rel="stylesheet" href="/fonts/departure-mono.css">
+  <link rel="stylesheet" href="/fonts/libre-baskerville.css">
+  <link rel="stylesheet" href="/fonts/geist-mono.css">
+  <link rel="stylesheet" href="/src/styles.css">
+</head>
+<body>
+  <!-- Layer 0: canvas background -->
+  <canvas id="canvas"></canvas>
+  <div id="fps" style="display:none"></div>
+
+  <!-- Layer 10: wordmark logo (top-left on home) -->
+  <a href="/" class="center-logo">
+    <span class="main-logo" id="logo">FURNACE</span>
+  </a>
+
+  <!-- Layer 100: page content -->
+  <div class="page" data-page-type="home">
+
+    <section class="home-hero" aria-label="Furnace hero">
+      <p class="home-hero-text">Furnace runs an AI coding loop in your terminal with <a class="home-hero-link" href="https://github.com/amoreX/furnace" target="_blank" rel="noopener noreferrer">local sessions</a> and typed tools.<br><span class="home-hero-open-clause">Built in the <a class="home-hero-open" href="https://github.com/amoreX/furnace" target="_blank" rel="noopener noreferrer">open</a>,</span> <span class="home-hero-tail-clause">shaped by the repositories that use it.</span></p>
+    </section>
+
+    <!-- Features overlay -->
+    <div class="updates-overlay overlay--features" id="features" role="dialog" aria-label="Features">
+      <article class="updates-letter">
+        <a class="updates-dismiss" href="#" aria-label="Close">×</a>
+        <div class="letter-body">
+          <p class="overlay-eyebrow">What Furnace does</p>
+          <ul class="feature-list">
+            <li>
+              <span class="feature-name">Terminal UI</span>
+              <span class="feature-desc">Interactive Ink-based TUI with streaming output, autocomplete, and a keyboard-driven settings panel.</span>
+            </li>
+            <li>
+              <span class="feature-name">Sessions &amp; Forks</span>
+              <span class="feature-desc">Local SQLite sessions stored as append-only entry trees. Resume, fork, or clone without losing context.</span>
+            </li>
+            <li>
+              <span class="feature-name">Typed Tools</span>
+              <span class="feature-desc">Read, search, edit, write, and run bounded shell commands through a typed tool registry.</span>
+            </li>
+            <li>
+              <span class="feature-name">Permission Gates</span>
+              <span class="feature-desc">Allow, ask, or deny each risky tool call. Session-scoped grants and plan-mode clamps keep you in control.</span>
+            </li>
+            <li>
+              <span class="feature-name">Context Compaction</span>
+              <span class="feature-desc">Model-assisted summaries and Headroom-lite compression keep long sessions within context limits.</span>
+            </li>
+            <li>
+              <span class="feature-name">Skills</span>
+              <span class="feature-desc">Progressive-disclosure instruction packages. Reuse Cursor, Claude Code, and custom skill roots.</span>
+            </li>
+            <li>
+              <span class="feature-name">Subagents</span>
+              <span class="feature-desc">Delegate independent work through a normal task tool, with foreground and background task groups.</span>
+            </li>
+            <li>
+              <span class="feature-name">Plan Mode</span>
+              <span class="feature-desc">Read-only planning workflow that writes durable plan artifacts before switching to implementation.</span>
+            </li>
+          </ul>
+        </div>
+      </article>
+    </div>
+
+    <!-- Quickstart overlay -->
+    <div class="updates-overlay overlay--quickstart" id="quickstart" role="dialog" aria-label="Quickstart">
+      <article class="updates-letter">
+        <a class="updates-dismiss" href="#" aria-label="Close">×</a>
+        <div class="letter-body">
+          <p class="overlay-eyebrow">First run</p>
+          <div class="quickstart-block">
+            <code>npm install -g cook-furnace</code>
+            <code>furnace</code>
+          </div>
+          <p class="quickstart-note">Interactive mode starts by default. Use <code>/login</code> to configure your provider, then type prompts and review tool approvals.</p>
+          <div class="quickstart-block" style="margin-top: 20px;">
+            <code># Or pass a prompt directly</code>
+            <code>furnace -p "Summarize this repository"</code>
+          </div>
+          <p class="quickstart-note" style="margin-top: 16px;">Requires Node 22+. Supports any OpenRouter-compatible model. Session state is stored locally — no cloud required.</p>
+        </div>
+      </article>
+    </div>
+
+  </div>
+
+  <!-- Layer 200: chrome -->
+  <nav class="top-nav" aria-label="Site navigation">
+    <a class="nav-link" href="https://github.com/amoreX/furnace" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <a class="nav-link" href="#features">Features</a>
+    <a class="nav-link" href="#quickstart">Quickstart</a>
+  </nav>
+
+  <div id="site-footer">FURNACE · MIT · v0.1.2</div>
+
+  <div class="bottom-controls">
+    <button id="theme-toggle" type="button" aria-label="Toggle color theme"><span class="value"></span></button>
+  </div>
+
+  <!-- Earendil WebGL ocean shader (MIT) -->
+  <script src="/shader.js"></script>
+  <!-- Overlay, nav menu, and overlay controls -->
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
