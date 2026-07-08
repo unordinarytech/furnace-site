@@ -60,11 +60,12 @@
     uniform float uTime;
     uniform float uNight;        // 1.0 night, 0.0 day
     uniform float uNoiseScale;   // finer grain on low-DPI displays
+    uniform float uLightFade;    // 0 → 1 light intensity fade-in on load
     uniform sampler2D uNormalMap;
 
     // Film grain from earendil-works/waves (martins upitis's film grain)
-    #define GRAIN_INTENSITY_DAY 0.4
-    #define GRAIN_INTENSITY_NIGHT 0.065
+    #define GRAIN_INTENSITY_DAY 0.5
+    #define GRAIN_INTENSITY_NIGHT 0.09
     #define GRAIN_SPEED 1.5
     #define GRAIN_MEAN 0.0
     #define GRAIN_VARIANCE_DAY 0.75
@@ -95,38 +96,35 @@
       n.y = -n.y;
       n = normalize(n);
 
-      // --- Light: point light hovering above the mouse position ---
+      // --- Point light at mouse position ---
       vec3 fragPos = vec3(gl_FragCoord.xy, 0.0);
-      float lightHeight = uResolution.y * 0.55;
+      float lightHeight = uResolution.y * 0.35;
       vec3 lightPos = vec3(uMouse, lightHeight);
       vec3 L = lightPos - fragPos;
-      float dist = length(L) / uResolution.y;
+      float dist3D = length(L);
       L = normalize(L);
 
+      // Diffuse from normal map
       float diff = max(dot(n, L), 0.0);
-      float atten = 1.0 / (1.0 + dist * dist * 2.2);
 
-      // Relief mask: flat areas ignore the light entirely, only the
-      // embossed edges of the surface react
-      float edge = smoothstep(0.02, 0.3, length(n.xy));
-
-      // Signed relief shading: positive on edges facing the light,
-      // negative on edges facing away — flat surfaces cancel to zero
-      float rel = diff - max(L.z, 0.0);
+      // Radial falloff: visible circle of light centered at cursor
+      float screenDist = length(L.xy) / uResolution.y;
+      float radius = 0.45;
+      float falloff = 1.0 - smoothstep(0.0, radius, screenDist);
+      falloff = falloff * falloff; // quadratic for softer edge
 
       // --- Matte concrete palette per theme ---
       vec3 baseNight  = vec3(0.080, 0.080, 0.083);
-      vec3 lightNight = vec3(0.80, 0.75, 0.68);  // faint warm
-      vec3 baseDay    = vec3(0.70, 0.70, 0.67);
-      vec3 lightDay   = vec3(1.00, 0.99, 0.96);
+      vec3 lightNight = vec3(0.976, 0.494, 0.447);  // synthwave-84 primary #F97E72
+      vec3 baseDay    = vec3(0.50, 0.50, 0.47);
+      vec3 lightDay   = vec3(1.0, 1.0, 1.0);         // uncolored white in day mode
 
       vec3 base = mix(baseDay,  baseNight,  uNight);
       vec3 lcol = mix(lightDay, lightNight, uNight);
 
-      // Flat matte base; edges pick up a subtle highlight near the cursor
-      // and an equally subtle shadow on their far side
-      vec3 color = base * (1.0 + edge * atten * min(rel, 0.0) * mix(1.2, 2.0, uNight))
-                 + lcol * edge * atten * max(rel, 0.0) * mix(0.10, 1.1, uNight);
+      // Base surface + point light contribution (faded in on load)
+      float lightIntensity = mix(0.15, 0.3, uNight) * uLightFade;
+      vec3 color = base + lcol * diff * falloff * lightIntensity;
 
       // --- Animated film grain (earendil waves) ---
       float gray = dot(color, vec3(0.299, 0.587, 0.114));
@@ -182,6 +180,7 @@
     time: gl.getUniformLocation(prog, 'uTime'),
     night: gl.getUniformLocation(prog, 'uNight'),
     noiseScale: gl.getUniformLocation(prog, 'uNoiseScale'),
+    lightFade: gl.getUniformLocation(prog, 'uLightFade'),
     normalMap: gl.getUniformLocation(prog, 'uNormalMap'),
   };
 
@@ -239,19 +238,24 @@
   }, { passive: true });
 
   const start = performance.now();
+  const FADE_DURATION = 500; // 0.5 seconds
 
   function draw() {
     // Ease the light toward the pointer
     mouseX += (targetX - mouseX) * 0.08;
     mouseY += (targetY - mouseY) * 0.08;
 
+    // Light intensity fade-in: 0 → 1 over FADE_DURATION
+    const elapsed = performance.now() - start;
+    const lightFade = Math.min(elapsed / FADE_DURATION, 1);
+
     gl.uniform2f(uni.resolution, W, H);
     gl.uniform2f(uni.texSize, texW, texH);
     gl.uniform2f(uni.mouse, mouseX * dpr, H - mouseY * dpr);
-    gl.uniform1f(uni.time, (performance.now() - start) / 1000);
+    gl.uniform1f(uni.time, elapsed / 1000);
     gl.uniform1f(uni.night, isNight ? 1 : 0);
-    // Finer grain on low-DPI displays (same rule as earendil waves)
-    gl.uniform1f(uni.noiseScale, dpr < 1.5 ? 1.7 : 1.0);
+    gl.uniform1f(uni.noiseScale, dpr < 1.5 ? 3.0 : 2.0);
+    gl.uniform1f(uni.lightFade, lightFade);
 
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     requestAnimationFrame(draw);

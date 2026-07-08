@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@theme {
+  --color-accent: #F97E72;
+  --font-mono: 'Departure Mono', ui-monospace, monospace;
+  --font-chrome: 'Geist Mono', ui-monospace, monospace;
+  --font-serif: 'Libre Baskerville', Baskerville, serif;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #807f7a;
+  overflow: hidden;
+}
+
+.theme-night, .theme-night body {
+  background: #1a1a1a;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* ==========================================================================
+   Canvas (fixed background, z-0)
+   ========================================================================== */
+
+canvas {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  image-rendering: auto;
+  opacity: 1;
+}
+
+@supports (height: 100dvh) {
+  canvas { height: 100dvh; }
+}
+
+/* ==========================================================================
+   Paper overlay (for features/quickstart content)
+   ========================================================================== */
+
+.paper-surface {
+  background: linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)),
+              url('/paper.png') center/256px 256px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(25, 20, 12, 0.2);
+  color: #1c1b1a;
+}
+
+.paper-surface::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(25, 20, 12, 0.14),
+              inset 0 -2px 4px rgba(25, 20, 12, 0.18);
+}
+
+/* Code blocks */
+.code-block {
+  background: rgba(28, 27, 26, 0.06);
+  border: 1px solid rgba(28, 27, 26, 0.1);
+  padding: 18px 20px;
+  overflow-x: auto;
+}
+
+.code-block code {
+  font: 14px/1.9 'Departure Mono', ui-monospace, monospace;
+  color: #1c1b1a;
+  display: block;
+  white-space: pre;
+}
+
+/* Feature list */
+.feature-list li {
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(25, 20, 12, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.feature-list li:first-child { padding-top: 0; }
+.feature-list li:last-child { border-bottom: none; }
+
+.feature-name {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: #1c1b1a;
+}
+
+.feature-desc {
+  color: rgba(28, 27, 26, 0.7);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 800px) {
+  #root { scroll-behavior: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #root { scroll-behavior: auto; }
+}
