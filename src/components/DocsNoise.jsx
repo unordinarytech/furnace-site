@@ -1,22 +1,21 @@
 import { useEffect, useRef } from 'react'
 
-export default function Footer() {
+export default function DocsNoise() {
   const canvasRef = useRef(null)
   const rafRef = useRef(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-    const ctx = canvas.getContext('2d')
+    const ctx = canvas.getContext('2d', { alpha: true })
+    if (!ctx) return
 
     function resize() {
-      canvas.width = canvas.offsetWidth
-      canvas.height = canvas.offsetHeight
+      canvas.width = Math.floor(window.innerWidth / 2)
+      canvas.height = Math.floor(window.innerHeight / 2)
     }
     resize()
-
-    const ro = new ResizeObserver(resize)
-    ro.observe(canvas)
+    window.addEventListener('resize', resize, { passive: true })
 
     let t = 0
     function draw() {
@@ -29,7 +28,7 @@ export default function Footer() {
 
       for (let i = 0; i < data.length; i += 4) {
         const noise = (Math.random() * 255) | 0
-        const alpha = (noise * 0.18) | 0
+        const alpha = (noise * 0.22) | 0
         data[i] = 255
         data[i + 1] = 255
         data[i + 2] = 255
@@ -43,17 +42,16 @@ export default function Footer() {
     draw()
 
     return () => {
+      window.removeEventListener('resize', resize)
       cancelAnimationFrame(rafRef.current)
-      ro.disconnect()
     }
   }, [])
 
   return (
-    <footer className="relative z-[2000] bg-[#0e0e0e] flex items-center justify-center px-[75px] py-[80px] overflow-hidden">
-      <div className="font-mono text-[clamp(64px,12vw,160px)] font-bold text-white/90 uppercase tracking-[-0.02em] leading-none relative z-[1] select-none">
-        FURNACE
-      </div>
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-[2]" />
-    </footer>
+    <canvas
+      ref={canvasRef}
+      aria-hidden="true"
+      className="absolute inset-0 w-full h-full pointer-events-none z-0 [image-rendering:pixelated]"
+    />
   )
 }

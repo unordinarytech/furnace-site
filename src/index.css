@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant night (&:where(.theme-night, .theme-night *));
+
 @theme {
   --color-accent: #5B8DEF;
   --font-mono: 'Departure Mono', ui-monospace, monospace;
@@ -7,242 +9,33 @@
   --font-serif: 'Libre Baskerville', Baskerville, serif;
 }
 
-/* ==========================================================================
-   Base
-   ========================================================================== */
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: #1a1a1a;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  background: #807f7a;
-  overflow: hidden;
-}
+  html:not(.theme-night),
+  html:not(.theme-night) body {
+    background: #807f7a;
+  }
 
-.theme-night, .theme-night body {
-  background: #1a1a1a;
-}
+  #root {
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    overscroll-behavior: none;
+  }
 
-#root {
-  width: 100vw;
-  height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-}
-
-/* ==========================================================================
-   Canvas (fixed background, z-0)
-   ========================================================================== */
-
-canvas {
-  display: block;
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  image-rendering: auto;
-  opacity: 1;
-}
-
-@supports (height: 100dvh) {
-  canvas { height: 100dvh; }
-}
-
-/* ==========================================================================
-   Paper overlay (for features/quickstart content)
-   ========================================================================== */
-
-.paper-surface {
-  background: linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)),
-              url('/paper.png') center/256px 256px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(25, 20, 12, 0.2);
-  color: #1c1b1a;
-}
-
-.paper-surface::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  box-shadow: inset 0 0 0 1px rgba(25, 20, 12, 0.14),
-              inset 0 -2px 4px rgba(25, 20, 12, 0.18);
-}
-
-/* Code blocks */
-.code-block {
-  background: rgba(28, 27, 26, 0.06);
-  border: 1px solid rgba(28, 27, 26, 0.1);
-  padding: 18px 20px;
-  overflow-x: auto;
-}
-
-.code-block code {
-  font: 14px/1.9 'Departure Mono', ui-monospace, monospace;
-  color: #1c1b1a;
-  display: block;
-  white-space: pre;
-}
-
-/* Feature list */
-.feature-list li {
-  padding: 18px 0;
-  border-bottom: 1px solid rgba(25, 20, 12, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.feature-list li:first-child { padding-top: 0; }
-.feature-list li:last-child { border-bottom: none; }
-
-.feature-name {
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  color: #1c1b1a;
-}
-
-.feature-desc {
-  color: rgba(28, 27, 26, 0.7);
-  line-height: 1.6;
-}
-
-/* Install code block — subtle translucent bg, inverts with theme */
-.install-block {
-  position: relative;
-  padding: 14px 22px;
-  font: 14px/1 'Departure Mono', ui-monospace, monospace;
-  background: rgba(91, 141, 239, 0.12);
-  color: rgba(255, 255, 255, 0.85);
-  transition: background 0.2s ease;
-}
-
-.install-block:hover {
-  background: rgba(91, 141, 239, 0.22);
-}
-
-.theme-night .install-block {
-  background: rgba(91, 141, 239, 0.08);
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.theme-night .install-block:hover {
-  background: rgba(91, 141, 239, 0.18);
-}
-
-/* Ring with offset on hover */
-.install-block::after {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  border: 1px solid rgba(91, 141, 239, 0.5);
-  border-radius: 2px;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  pointer-events: none;
-}
-
-.install-block:hover::after {
-  opacity: 1;
-}
-
-/* Copied state — solid bg, ring stays visible */
-.install-block.copied {
-  background: rgba(91, 141, 239, 1);
-}
-
-.install-block.copied::after {
-  opacity: 1;
-}
-
-.theme-night .install-block.copied {
-  background: rgba(91, 141, 239, 1);
-}
-
-/* ==========================================================================
-   Home page features section (transparent, no card)
-   ========================================================================== */
-
-.home-features ul {
-  list-style: none;
-}
-
-.home-feature-item {
-  padding: 14px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  text-align: left;
-}
-
-.home-feature-item:first-child { padding-top: 0; }
-.home-feature-item:last-child { padding-bottom: 0; }
-
-.home-feature-name {
-  font-family: 'Departure Mono', ui-monospace, monospace;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 13px;
-  letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.95);
-}
-
-.home-feature-desc {
-  font-family: 'Libre Baskerville', Baskerville, serif;
-  font-size: 15px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.65);
-}
-
-/* ==========================================================================
-   Footer
-   ========================================================================== */
-
-.footer-root {
-  position: relative;
-  z-index: 2000;
-  background: #0e0e0e;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 75px;
-  overflow: hidden;
-}
-
-.footer-text {
-  font-family: 'Departure Mono', ui-monospace, monospace;
-  font-size: clamp(64px, 12vw, 160px);
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.9);
-  text-transform: uppercase;
-  letter-spacing: -0.02em;
-  line-height: 1;
-  position: relative;
-  z-index: 1;
-  user-select: none;
-}
-
-.footer-noise {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* ==========================================================================
-   Responsive
-   ========================================================================== */
-
-@media (max-width: 800px) {
-  #root { scroll-behavior: auto; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #root { scroll-behavior: auto; }
+  @media (max-width: 800px) {
+    #root {
+      scroll-behavior: auto;
+    }
+  }
 }

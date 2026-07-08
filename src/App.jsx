@@ -1,12 +1,16 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Background from './components/Background.jsx'
 import Chrome from './components/Chrome.jsx'
 import Footer from './components/Footer.jsx'
 import Home from './pages/Home.jsx'
 import Features from './pages/Features.jsx'
 import Quickstart from './pages/Quickstart.jsx'
+import Docs from './pages/Docs.jsx'
 
 export default function App() {
+  const location = useLocation()
+  const isDocs = location.pathname.startsWith('/docs')
+
   return (
     <>
       <Background />
@@ -16,9 +20,11 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/features" element={<Features />} />
           <Route path="/quickstart" element={<Quickstart />} />
+          <Route path="/docs" element={<Docs />} />
+          <Route path="/docs/:section" element={<Docs />} />
         </Routes>
       </main>
-      <Footer />
+      {!isDocs && <Footer />}
     </>
   )
 }
