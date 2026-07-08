@@ -172,15 +172,15 @@ canvas {
 }
 
 .home-feature-item {
-  padding: 22px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
+  text-align: left;
 }
 
 .home-feature-item:first-child { padding-top: 0; }
-.home-feature-item:last-child { border-bottom: none; }
+.home-feature-item:last-child { padding-bottom: 0; }
 
 .home-feature-name {
   font-family: 'Departure Mono', ui-monospace, monospace;
@@ -189,12 +189,6 @@ canvas {
   font-size: 13px;
   letter-spacing: 0.1em;
   color: rgba(255, 255, 255, 0.95);
-  transition: color 0.2s ease, text-shadow 0.2s ease;
-}
-
-.home-feature-item:hover .home-feature-name {
-  color: #F97E72;
-  text-shadow: 0 0 8px rgba(249, 126, 114, 0.5);
 }
 
 .home-feature-desc {

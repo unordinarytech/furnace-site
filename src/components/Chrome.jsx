@@ -20,13 +20,13 @@ export default function Chrome() {
       <nav className="fixed top-[75px] right-[75px] z-[200] flex flex-col items-end gap-2">
         <Link
           to="/features"
-          className="font-chrome text-[14px] uppercase text-white/95 no-underline hover:text-accent hover:[text-shadow:0_0_8px_rgba(249,126,114,0.8)]"
+          className="font-mono text-[14px] uppercase text-white/95 no-underline hover:text-accent hover:[text-shadow:0_0_8px_rgba(249,126,114,0.8)]"
         >
           Features
         </Link>
         <Link
           to="/quickstart"
-          className="font-chrome text-[14px] uppercase text-white/95 no-underline hover:text-accent hover:[text-shadow:0_0_8px_rgba(249,126,114,0.8)]"
+          className="font-mono text-[14px] uppercase text-white/95 no-underline hover:text-accent hover:[text-shadow:0_0_8px_rgba(249,126,114,0.8)]"
         >
           Quickstart
         </Link>
@@ -34,7 +34,7 @@ export default function Chrome() {
           href="https://github.com/amoreX/furnace"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-chrome text-[14px] uppercase text-white/95 no-underline hover:text-accent hover:[text-shadow:0_0_8px_rgba(249,126,114,0.8)]"
+          className="font-mono text-[14px] uppercase text-white/95 no-underline hover:text-accent hover:[text-shadow:0_0_8px_rgba(249,126,114,0.8)]"
         >
           GitHub
         </a>
@@ -43,7 +43,7 @@ export default function Chrome() {
       {/* Footer — bottom left */}
       <div
         id="site-footer"
-        className="fixed bottom-[75px] left-[75px] z-[200] font-chrome text-[14px] text-white/95 px-2.5 py-1.5"
+        className="fixed bottom-[75px] left-[75px] z-[200] font-mono text-[14px] text-white/95 px-2.5 py-1.5"
       >
         FURNACE · MIT · v0.1.2
       </div>
@@ -54,7 +54,7 @@ export default function Chrome() {
           id="theme-toggle"
           type="button"
           aria-label="Toggle color theme"
-          className="border-0 bg-none font-chrome text-[14px] text-white/95 px-2.5 py-1.5 cursor-pointer hover:text-accent hover:[text-shadow:0_0_8px_rgba(249,126,114,0.6)]"
+          className="border-0 bg-none font-mono text-[14px] text-white/95 px-2.5 py-1.5 cursor-pointer hover:text-accent hover:[text-shadow:0_0_8px_rgba(249,126,114,0.6)]"
         >
           <span className="value"></span>
         </button>

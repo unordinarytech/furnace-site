@@ -19,7 +19,7 @@ export default function Home() {
     <>
       <section className="relative min-h-screen flex items-center justify-center text-center px-[75px] pb-[170px] pt-[4vh]">
         <div className="flex flex-col items-center gap-8">
-          <p className="m-0 font-serif text-[clamp(20px,2.2vw,34px)] leading-[1.3] font-normal max-w-[820px] text-white/95">
+          <p className="m-0 mt-[50px] font-serif text-[clamp(20px,2.2vw,34px)] leading-[1.3] font-normal max-w-[820px] text-white/95">
             We studied what users love about every agent harness and built it all into{' '}
             <a
               className="text-inherit no-underline underline [text-decoration-thickness:0.03em] [text-underline-offset:0.08em] cursor-pointer hover:text-accent hover:[text-shadow:0_0_12px_rgba(249,126,114,0.8)]"
@@ -58,7 +58,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative flex items-center justify-center px-[75px] py-[120px]">
+      <section className="relative flex items-center justify-center px-[75px] py-[80px] min-h-screen">
         <div className="home-features w-[min(820px,92vw)]">
           <ul className="list-none p-0 m-0">
             {FEATURES.map((f) => (
