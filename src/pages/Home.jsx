@@ -6,8 +6,8 @@ const INSTALL_CMD = 'npm install -g cook-furnace'
 
 const installBase =
   'relative h-12 px-[22px] w-fit flex items-center justify-center font-mono text-[14px] leading-none ' +
-  'select-none cursor-pointer transition-[background-color,color,outline-color] duration-200 ' +
-  'outline outline-1 outline-transparent outline-offset-4 text-[#1c1b1a] night:text-white/85 '
+  'select-none cursor-pointer transition-[background-color,color,border-color] duration-200 ' +
+  'border border-accent/50 text-accent'
 
 export default function Home() {
   const [copied, setCopied] = useState(false)
@@ -22,8 +22,8 @@ export default function Home() {
   }
 
   const installState = copied
-    ? 'bg-white night:bg-accent outline-accent/50 hover:outline-accent/50'
-    : 'bg-white hover:bg-white/90 hover:outline-accent/50 night:bg-accent/8 night:hover:bg-accent/18'
+    ? 'bg-accent border-accent text-white'
+    : 'bg-accent/8 hover:bg-accent/16 hover:border-accent/80'
 
   return (
     <>
