@@ -59,7 +59,7 @@ function CopyButton({ code }) {
 function renderTable(lines) {
   const rows = lines
     .filter((l) => l.startsWith('|') && l.endsWith('|'))
-    .map((l) => l.slice(1, -1).split('|').map((cell) => cell.trim()))
+    .map((l) => l.slice(1, -1).split(/(?<!\\)\|/).map((cell) => cell.replace(/\\\|/g, '|').trim()))
 
   if (rows.length < 2) return null
 
