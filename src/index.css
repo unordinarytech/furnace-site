@@ -14,13 +14,14 @@
   body {
     margin: 0;
     padding: 0;
-    background: #807f7a;
+    background: #1a1a1a;
     overflow: hidden;
     overscroll-behavior: none;
   }
 
-  .theme-night {
-    background: #1a1a1a;
+  html:not(.theme-night),
+  html:not(.theme-night) body {
+    background: #807f7a;
   }
 
   #root {
