@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { FEATURES } from '../features-data.js'
 
 const INSTALL_CMD = 'npm install -g cook-furnace'
@@ -47,13 +48,18 @@ export default function Home() {
             </span>
           </p>
 
-          <div
-            className={`install-block ${copied ? 'copied' : ''}`}
-            style={{ userSelect: 'none', cursor: 'pointer', width: 'fit-content', textAlign: 'center', position: 'relative' }}
-            onClick={handleCopy}
-          >
-            <code style={{ opacity: copied ? 0 : 1, transition: 'opacity 0.15s ease', whiteSpace: 'nowrap' }}>{INSTALL_CMD}</code>
-            <span style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: copied ? 1 : 0, transition: 'opacity 0.15s ease' }}>Copied! Start cooking now</span>
+          <div className="cta-row">
+            <div
+              className={`install-block ${copied ? 'copied' : ''}`}
+              style={{ userSelect: 'none', cursor: 'pointer', width: 'fit-content', textAlign: 'center', position: 'relative' }}
+              onClick={handleCopy}
+            >
+              <code style={{ opacity: copied ? 0 : 1, transition: 'opacity 0.15s ease', whiteSpace: 'nowrap' }}>{INSTALL_CMD}</code>
+              <span style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: copied ? 1 : 0, transition: 'opacity 0.15s ease' }}>Copied! Start cooking now</span>
+            </div>
+            <Link to="/docs" className="docs-cta-button">
+              Docs
+            </Link>
           </div>
         </div>
       </section>
