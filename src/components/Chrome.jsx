@@ -1,6 +1,21 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 export default function Chrome() {
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  const handleFeatures = (e) => {
+    e.preventDefault()
+    if (location.pathname === '/') {
+      document.getElementById('features-section')?.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      navigate('/')
+      setTimeout(() => {
+        document.getElementById('features-section')?.scrollIntoView({ behavior: 'smooth' })
+      }, 100)
+    }
+  }
+
   return (
     <>
       {/* Logo — top left */}
@@ -15,9 +30,13 @@ export default function Chrome() {
 
       {/* Nav — top right */}
       <nav className="fixed top-[75px] right-[75px] z-[200] flex flex-col items-end gap-2">
-        <Link to="/features" className="font-mono text-[14px] uppercase text-white/95 no-underline hover:text-accent hover:[text-shadow:0_0_8px_rgba(91,141,239,0.8)]">
+        <a
+          href="#features-section"
+          onClick={handleFeatures}
+          className="font-mono text-[14px] uppercase text-white/95 no-underline cursor-pointer hover:text-accent hover:[text-shadow:0_0_8px_rgba(91,141,239,0.8)]"
+        >
           Features
-        </Link>
+        </a>
         <Link to="/quickstart" className="font-mono text-[14px] uppercase text-white/95 no-underline hover:text-accent hover:[text-shadow:0_0_8px_rgba(91,141,239,0.8)]">
           Quickstart
         </Link>

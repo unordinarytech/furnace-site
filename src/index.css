@@ -204,6 +204,7 @@ canvas {
 
 .footer-root {
   position: relative;
+  z-index: 2000;
   background: #0e0e0e;
   display: flex;
   align-items: center;

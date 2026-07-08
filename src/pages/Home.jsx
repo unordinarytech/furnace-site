@@ -58,7 +58,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative flex items-center justify-center px-[75px] py-[80px] min-h-screen">
+      <section id="features-section" className="relative flex items-center justify-center px-[75px] py-[80px] min-h-screen">
         <div className="home-features w-[min(820px,92vw)]">
           <ul className="list-none p-0 m-0">
             {FEATURES.map((f) => (
