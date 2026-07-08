@@ -1,0 +1,57 @@
+import { useEffect, useRef } from 'react'
+
+export default function Footer() {
+  const canvasRef = useRef(null)
+  const rafRef = useRef(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+
+    function resize() {
+      canvas.width = canvas.offsetWidth
+      canvas.height = canvas.offsetHeight
+    }
+    resize()
+
+    const ro = new ResizeObserver(resize)
+    ro.observe(canvas)
+
+    let t = 0
+    function draw() {
+      const { width, height } = canvas
+      if (!width || !height) { rafRef.current = requestAnimationFrame(draw); return }
+
+      const img = ctx.createImageData(width, height)
+      const data = img.data
+      t += 0.5
+
+      for (let i = 0; i < data.length; i += 4) {
+        const noise = (Math.random() * 255) | 0
+        const alpha = (noise * 0.18) | 0
+        data[i] = 255
+        data[i + 1] = 255
+        data[i + 2] = 255
+        data[i + 3] = alpha
+      }
+
+      ctx.putImageData(img, 0, 0)
+      rafRef.current = requestAnimationFrame(draw)
+    }
+
+    draw()
+
+    return () => {
+      cancelAnimationFrame(rafRef.current)
+      ro.disconnect()
+    }
+  }, [])
+
+  return (
+    <footer className="footer-root">
+      <div className="footer-text">FURNACE</div>
+      <canvas ref={canvasRef} className="footer-noise" />
+    </footer>
+  )
+}

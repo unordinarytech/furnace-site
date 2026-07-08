@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
-import { useEffect } from 'react'
 import Background from './components/Background.jsx'
 import Chrome from './components/Chrome.jsx'
+import Footer from './components/Footer.jsx'
 import Home from './pages/Home.jsx'
 import Features from './pages/Features.jsx'
 import Quickstart from './pages/Quickstart.jsx'
@@ -17,6 +17,7 @@ export default function App() {
           <Route path="/features" element={<Features />} />
           <Route path="/quickstart" element={<Quickstart />} />
         </Routes>
+        <Footer />
       </main>
     </>
   )
