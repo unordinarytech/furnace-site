@@ -22,6 +22,15 @@
   <link rel="stylesheet" href="/fonts/departure-mono.css">
   <link rel="stylesheet" href="/fonts/libre-baskerville.css">
   <link rel="stylesheet" href="/fonts/geist-mono.css">
+  <script>
+    (function () {
+      const THEME_KEY = 'furnace-theme';
+      let isNight = true;
+      try { isNight = localStorage.getItem(THEME_KEY) !== 'day'; } catch {}
+      document.documentElement.classList.toggle('theme-night', isNight);
+      document.body.classList.toggle('theme-night', isNight);
+    })();
+  </script>
 </head>
 <body>
   <div id="root"></div>
