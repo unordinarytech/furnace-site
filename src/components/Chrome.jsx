@@ -1,5 +1,30 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+
+function useAnimatedVersion(target) {
+  const [display, setDisplay] = useState(null)
+  const rafRef = useRef(null)
+
+  useEffect(() => {
+    if (!target) return
+    const parts = target.split('.').map(Number)
+    const DURATION = 400
+    const start = performance.now()
+
+    function tick(now) {
+      const t = Math.min((now - start) / DURATION, 1)
+      const eased = t < 1 ? 1 - Math.pow(1 - t, 3) : 1
+      const current = parts.map((v) => Math.floor(eased * v))
+      setDisplay(current.join('.'))
+      if (t < 1) rafRef.current = requestAnimationFrame(tick)
+    }
+
+    rafRef.current = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(rafRef.current)
+  }, [target])
+
+  return display
+}
 
 const chromeLink =
   'font-mono text-[14px] uppercase text-white/95 no-underline cursor-pointer hover:text-accent hover:[text-shadow:0_0_8px_rgba(91,141,239,0.8)]'
@@ -15,6 +40,7 @@ export default function Chrome() {
   const navigate = useNavigate()
   const isDocs = location.pathname.startsWith('/docs')
   const [version, setVersion] = useState(null)
+  const animatedVersion = useAnimatedVersion(version)
 
   useEffect(() => {
     fetch('https://registry.npmjs.org/cook-furnace/latest')
@@ -75,7 +101,7 @@ export default function Chrome() {
       {/* Footer label — bottom left */}
       {!isDocs && (
         <div id="site-footer" className="fixed bottom-[75px] left-[75px] z-[200] font-mono text-[14px] text-white/95 px-2.5 py-1.5">
-          FURNACE · MIT · {version ? `v${version}` : '—'}
+          FURNACE · MIT · {animatedVersion ? `v${animatedVersion}` : '—'}
         </div>
       )}
 
