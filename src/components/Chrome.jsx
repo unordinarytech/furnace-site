@@ -72,10 +72,17 @@ export default function Chrome() {
     <>
       {/* Logo — top left */}
       {!isDocs && (
-        <Link to="/" className="fixed left-[75px] top-[75px] z-[1000] block no-underline">
+        <Link to="/" className="fixed left-[75px] top-[75px] z-[1000] flex items-center gap-2.5 no-underline group opacity-85 hover:opacity-100">
+          <img
+            src="/furnace-logo.svg"
+            alt="Furnace"
+            width="20"
+            height="20"
+            style={{ imageRendering: 'pixelated' }}
+          />
           <span
             id="logo"
-            className="block font-mono text-[18px] uppercase whitespace-nowrap text-white/90 opacity-85 tracking-[0] hover:text-accent hover:[text-shadow:0_0_8px_rgba(91,141,239,0.6)] hover:opacity-100"
+            className="font-mono text-[18px] uppercase whitespace-nowrap text-white/90 tracking-[0] group-hover:text-accent group-hover:[text-shadow:0_0_8px_rgba(91,141,239,0.6)]"
           >
             FURNACE
           </span>
