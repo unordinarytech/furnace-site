@@ -2,21 +2,24 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 
 function useAnimatedVersion(target) {
-  const [display, setDisplay] = useState(null)
+  const [display, setDisplay] = useState('0.0.0')
   const rafRef = useRef(null)
 
   useEffect(() => {
     if (!target) return
     const parts = target.split('.').map(Number)
+    // Each slot rolls 1 full extra cycle (0-9) before landing on its digit
+    const totals = parts.map((v) => v + 10)
     const DURATION = 400
     const start = performance.now()
 
     function tick(now) {
       const t = Math.min((now - start) / DURATION, 1)
-      const eased = t < 1 ? 1 - Math.pow(1 - t, 3) : 1
-      const current = parts.map((v) => Math.floor(eased * v))
+      const eased = 1 - Math.pow(1 - t, 3)
+      const current = totals.map((total) => Math.floor(eased * total) % 10)
       setDisplay(current.join('.'))
       if (t < 1) rafRef.current = requestAnimationFrame(tick)
+      else setDisplay(parts.join('.'))
     }
 
     rafRef.current = requestAnimationFrame(tick)
@@ -100,9 +103,15 @@ export default function Chrome() {
 
       {/* Footer label — bottom left */}
       {!isDocs && (
-        <div id="site-footer" className="fixed bottom-[75px] left-[75px] z-[200] font-mono text-[14px] text-white/95 px-2.5 py-1.5">
-          FURNACE · MIT · {animatedVersion ? `v${animatedVersion}` : '—'}
-        </div>
+        <a
+          id="site-footer"
+          href="https://www.npmjs.com/package/cook-furnace"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-[75px] left-[75px] z-[200] font-mono text-[14px] text-white/95 px-2.5 py-1.5 no-underline hover:underline cursor-pointer"
+        >
+          FURNACE · v{animatedVersion}
+        </a>
       )}
 
       {/* Theme toggle — bottom right */}
