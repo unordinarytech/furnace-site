@@ -9,19 +9,19 @@ export const PaperSurface = paperSurface
 
 export default function Features() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-[30px] py-[120px]">
-      <div className={`${paperSurface} w-[min(1000px,92vw)] p-[78px] pb-[72px] font-mono text-[15px] leading-[1.5]`}>
-        <p className="font-bold uppercase tracking-[0.12em] text-[12px] text-[rgba(28,27,26,0.5)] mb-7">
-          What Furnace does
-        </p>
-        <ul className="list-none p-0 m-0">
+    <section className="relative h-auto px-[30px] pt-[120px] pb-[160px]">
+      <div className="w-[min(860px,92vw)] h-[60vh] mx-auto">
+        <div className="grid grid-cols-2 grid-rows-[1fr_1fr] gap-4 h-full">
           {FEATURES.map((f) => (
-            <li key={f.name} className="py-[18px] border-b border-[rgba(25,20,12,0.1)] flex flex-col gap-1.5 first:pt-0 last:border-b-0">
+            <div
+              key={f.name}
+              className={`${paperSurface} flex flex-col justify-between p-6 text-left`}
+            >
               <span className="font-bold uppercase text-[12px] tracking-[0.1em] text-[#1c1b1a]">{f.name}</span>
               <span className="text-[rgba(28,27,26,0.7)] leading-[1.6]">{f.desc}</span>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   )

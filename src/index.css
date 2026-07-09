@@ -31,6 +31,12 @@
     overflow-x: hidden;
     scroll-behavior: smooth;
     overscroll-behavior: none;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  #root::-webkit-scrollbar {
+    display: none;
   }
 
   @media (max-width: 800px) {
