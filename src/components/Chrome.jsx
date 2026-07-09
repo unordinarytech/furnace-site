@@ -8,15 +8,19 @@ function useAnimatedVersion(target) {
   useEffect(() => {
     if (!target) return
     const parts = target.split('.').map(Number)
-    // Each slot rolls 1 full extra cycle (0-9) before landing on its digit
-    const totals = parts.map((v) => v + 10)
+    // Segments with target=0 stay at 0; others roll one full extra cycle before landing
+    const totals = parts.map((v) => (v === 0 ? 0 : v + 10))
     const DURATION = 400
     const start = performance.now()
 
     function tick(now) {
-      const t = Math.min((now - start) / DURATION, 1)
+      const t = Math.min(Math.max((now - start) / DURATION, 0), 1)
       const eased = 1 - Math.pow(1 - t, 3)
-      const current = totals.map((total) => Math.floor(eased * total) % 10)
+      const current = parts.map((v, i) => {
+        if (v === 0) return 0
+        const raw = Math.floor(eased * totals[i])
+        return ((raw % 10) + 10) % 10  // safe modulo, always non-negative
+      })
       setDisplay(current.join('.'))
       if (t < 1) rafRef.current = requestAnimationFrame(tick)
       else setDisplay(parts.join('.'))
