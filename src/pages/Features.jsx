@@ -29,12 +29,12 @@ export default function Features() {
                 dim={hovered !== null && hovered !== i}
               >
                 <div
-                  className={`h-full flex flex-col justify-between p-6 border text-left transition-colors duration-300 ${
-                    hovered === i ? 'border-accent/70' : 'border-white/8'
+                  className={`h-full flex flex-col justify-between p-6 border text-left outline outline-1 outline-offset-4 transition-[color,border-color,outline-color] duration-300 ${
+                    hovered === i ? 'border-white/70 outline-white/50 night:border-accent/70 night:outline-accent/50' : 'border-white/8 outline-transparent'
                   }`}
                 >
-                  <span className="font-bold uppercase text-[12px] tracking-[0.1em] text-white/95">{f.name}</span>
-                  <span className="text-white/65 leading-[1.6]">{f.desc}</span>
+                  <span className={`font-bold uppercase text-[12px] tracking-[0.1em] transition-colors duration-300 ${hovered === i ? 'text-white night:text-accent' : 'text-white/95'}`}>{f.name}</span>
+                  <span className={`leading-[1.6] transition-colors duration-300 ${hovered === i ? 'text-white/80 night:text-accent/80' : 'text-white/65'}`}>{f.desc}</span>
                 </div>
               </GraphCardBackground>
             </div>

@@ -2,14 +2,14 @@ export const FEATURES = [
   {
     name: '/Fork Any Conversation',
     desc: 'Furnace keeps a tree of your conversation, so you can branch off to explore any direction without losing your original work.',
-    normalMap: '/graph-stronger.png',
+    normalMap: '/graph_normal.png',
     image: '/graph.png',
   },
   {
     name: 'Save 50% Tokens by Indexing',
     desc: 'Furnace builds an index for every project, giving your agent the context it needs before you even start.',
-    normalMap: '/graph-stronger.png',
-    image: '/graph.png',
+    normalMap: '/money_normal.png',
+    image: '/money.png',
   },
   {
     name: 'Bring Your Own Keys',
@@ -20,7 +20,7 @@ export const FEATURES = [
   {
     name: '/Evolve Your Agent',
     desc: 'Everything in Furnace is customizable. Just ask for changes, like "add a monochrome theme to Furnace".',
-    normalMap: '/hand_normal.png',
-    image: '/hand.png',
+    normalMap: '/evolve_normal.png',
+    image: '/evolve.png',
   },
 ]

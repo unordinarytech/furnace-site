@@ -79,10 +79,11 @@ export default function Chrome() {
             width="20"
             height="20"
             style={{ imageRendering: 'pixelated' }}
+            className="[filter:brightness(0)_invert(1)] night:[filter:none]"
           />
           <span
             id="logo"
-            className="font-mono text-[18px] uppercase whitespace-nowrap text-white/90 tracking-[0] group-hover:text-accent group-hover:[text-shadow:0_0_8px_rgba(91,141,239,0.6)]"
+            className="font-mono text-[18px] uppercase whitespace-nowrap text-white/90 tracking-[0] group-hover:text-white night:group-hover:text-accent night:group-hover:[text-shadow:0_0_8px_rgba(91,141,239,0.6)]"
           >
             FURNACE
           </span>

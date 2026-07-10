@@ -3,11 +3,11 @@ import { useEffect, useRef } from 'react'
 export default function GraphCardBackground({ normalMap = '/graph-normal.png', threshold = 0.90, image = null, accent = false, dim = false, children }) {
   const canvasRef = useRef(null)
   const rafRef = useRef(null)
-  const targetRef = useRef({ accent: accent ? 1 : 0, strength: dim ? 0 : 1 })
+  const targetRef = useRef({ accent: accent ? 1 : 0, strength: 1 })
 
   useEffect(() => {
     targetRef.current.accent = accent ? 1 : 0
-    targetRef.current.strength = dim ? 0 : 1
+    targetRef.current.strength = 1
   }, [accent, dim])
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export default function GraphCardBackground({ normalMap = '/graph-normal.png', t
 
         vec3 n = texture2D(uNormalMap, uv).rgb * 2.0 - 1.0;
         n.y = -n.y;
-        n.xy *= 1.3;
+        n.xy *= mix(1.3, 2.4, uAccent);
         n = normalize(n);
 
         vec3 fragPos = vec3(gl_FragCoord.xy, 0.0);
@@ -90,12 +90,12 @@ export default function GraphCardBackground({ normalMap = '/graph-normal.png', t
         vec3 lightAlbedo = vec3(0.18, 0.18, 0.18);
         vec3 albedo = mix(dark, lightAlbedo, elevated);
 
-        // Light color: white by default, blue accent on hover
+        // Light color: white by default, blue accent on hover (night only; day stays white)
         vec3 accentColor = vec3(0.357, 0.553, 0.937);
-        vec3 lightColor = mix(vec3(1.0), accentColor, uAccent);
+        vec3 lightColor = mix(vec3(1.0), accentColor, uAccent * uNight);
 
-        // Point light illuminates the albedo (dim, wide); strength fades other cards out
-        float lightAmt = diff * falloff * 0.28 * uStrength;
+        // Point light illuminates the albedo (dim, wide); brighter on hover
+        float lightAmt = diff * falloff * 0.28 * uStrength * mix(1.0, 2.6, uAccent);
         vec3 color = albedo * 0.85 + lightColor * lightAmt;
 
         float gray = dot(color, vec3(0.299, 0.587, 0.114));
@@ -242,7 +242,7 @@ export default function GraphCardBackground({ normalMap = '/graph-normal.png', t
   }, [normalMap, threshold, image])
 
   return (
-    <div className="relative w-full h-full overflow-hidden bg-[#15151a]">
+    <div className="relative w-full h-full bg-[#15151a]">
       {image && (
         <img
           src={image}
