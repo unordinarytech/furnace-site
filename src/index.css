@@ -46,6 +46,20 @@
   }
 }
 
+.word-hidden {
+  opacity: 0;
+}
+
+.word-reveal {
+  opacity: 1;
+  color: #5B8DEF;
+  animation: word-settle 0ms 80ms forwards;
+}
+
+@keyframes word-settle {
+  to { color: #ffffff; }
+}
+
 @keyframes coin-spin {
   from {
     transform: rotateY(0deg);
