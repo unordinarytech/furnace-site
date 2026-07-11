@@ -6,7 +6,7 @@ export const FEATURES = [
     image: '/graph.png',
   },
   {
-    name: 'Save 50% Tokens by Indexing',
+    name: 'Saves Tokens by Indexing',
     desc: 'Furnace builds an index for every project, giving your agent the context it needs before you even start.',
     normalMap: '/money_normal.png',
     image: '/money.png',
