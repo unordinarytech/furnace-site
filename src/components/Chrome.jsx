@@ -99,9 +99,6 @@ export default function Chrome() {
         >
           Features
         </a>
-        <Link to="/quickstart" className={chromeLink}>
-          Quickstart
-        </Link>
         <Link
           to={isDocs ? '/' : '/docs'}
           className={isDocs ? activeLink : chromeLink}

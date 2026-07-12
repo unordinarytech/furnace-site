@@ -4,7 +4,6 @@ import Chrome from './components/Chrome.jsx'
 import Footer from './components/Footer.jsx'
 import Home from './pages/Home.jsx'
 import Features from './pages/Features.jsx'
-import Quickstart from './pages/Quickstart.jsx'
 import Docs from './pages/Docs.jsx'
 
 export default function App() {
@@ -19,7 +18,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/features" element={<Features />} />
-          <Route path="/quickstart" element={<Quickstart />} />
           <Route path="/docs" element={<Docs />} />
           <Route path="/docs/:section" element={<Docs />} />
         </Routes>

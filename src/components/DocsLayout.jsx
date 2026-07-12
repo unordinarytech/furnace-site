@@ -33,7 +33,7 @@ export default function DocsLayout({ children }) {
               <Link
                 key={s.id}
                 to={`/docs/${s.id}`}
-                className={`${navLinkBase} ${section === s.id ? 'text-accent' : ''}`}
+                className={`${navLinkBase} ${section === s.id ? 'underline decoration-current underline-offset-4' : ''}`}
               >
                 {s.label}
               </Link>

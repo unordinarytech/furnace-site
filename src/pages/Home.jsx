@@ -87,6 +87,11 @@ export default function Home() {
     ? 'bg-white border-white text-[#1c1b1a] outline-white/50 night:bg-accent night:border-accent night:text-white night:outline-accent/50'
     : 'text-white bg-white/10 hover:bg-white/20 hover:border-white/80 hover:outline-white/50 night:text-accent night:bg-accent/8 night:hover:bg-accent/16 night:hover:border-accent/80 night:hover:outline-accent/50'
 
+  const scrollToFeatures = (event) => {
+    event.preventDefault()
+    document.getElementById('features-section')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <>
       <section className="relative min-h-screen flex items-center justify-center text-center px-6 md:px-[75px] pb-[80px] pt-[4vh]">
@@ -201,11 +206,23 @@ export default function Home() {
             const words = paragraph.split(' ')
             return (
               <p key={pIdx} className={pIdx === 0 ? 'm-0' : 'm-0 mt-6'}>
-                {words.map((word, wIdx) => (
-                  <W key={wIdx} r={rAbout} idx={offset + wIdx}>
-                    {wIdx < words.length - 1 ? word + ' ' : word}
-                  </W>
-                ))}
+                {words.map((word, wIdx) => {
+                  const trailingSpace = wIdx < words.length - 1 ? ' ' : ''
+                  return (
+                    <W key={wIdx} r={rAbout} idx={offset + wIdx}>
+                      {word === 'evolve' ? (
+                        <a
+                          href="#features-section"
+                          onClick={scrollToFeatures}
+                          className="text-inherit underline [text-decoration-thickness:0.04em] [text-underline-offset:0.1em] hover:text-accent hover-accent-glow"
+                        >
+                          evolve
+                        </a>
+                      ) : word}
+                      {trailingSpace}
+                    </W>
+                  )
+                })}
               </p>
             )
           })}
