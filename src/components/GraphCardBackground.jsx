@@ -85,14 +85,15 @@ export default function GraphCardBackground({ normalMap = '/graph-normal.png', t
         // Plane albedo: sharp two-tone from the normal map (elevated -> white, lower -> dark)
         float elevated = smoothstep(uThreshold, uThreshold + 0.01, n.z);
         vec3 darkNight = vec3(0.10, 0.10, 0.11);
-        vec3 darkDay = vec3(0.48, 0.48, 0.45);
+        vec3 darkDay = vec3(0.49, 0.47, 0.39);
         vec3 dark = mix(darkDay, darkNight, uNight);
         vec3 lightAlbedo = vec3(0.18, 0.18, 0.18);
         vec3 albedo = mix(dark, lightAlbedo, elevated);
 
-        // Light color: white by default, blue accent on hover (night only; day stays white)
+        // Warm light in day mode; white/blue light in night mode
         vec3 accentColor = vec3(0.357, 0.553, 0.937);
-        vec3 lightColor = mix(vec3(1.0), accentColor, uAccent * uNight);
+        vec3 defaultLight = mix(vec3(1.0, 0.94, 0.72), vec3(1.0), uNight);
+        vec3 lightColor = mix(defaultLight, accentColor, uAccent * uNight);
 
         // Point light illuminates the albedo (dim, wide); brighter on hover
         float lightAmt = diff * falloff * 0.28 * uStrength * mix(1.0, 2.6, uAccent);

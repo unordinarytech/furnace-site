@@ -34,13 +34,13 @@ function useAnimatedVersion(target) {
 }
 
 const chromeLink =
-  'font-mono text-[14px] uppercase text-white/95 no-underline cursor-pointer hover:text-accent hover:[text-shadow:0_0_8px_rgba(91,141,239,0.8)]'
+  'font-mono text-[14px] uppercase text-white/95 no-underline cursor-pointer hover:text-accent hover-accent-glow'
 
 const activeLink =
-  'font-mono text-[14px] uppercase no-underline text-accent [text-shadow:0_0_8px_rgba(91,141,239,0.6)]'
+  'font-mono text-[14px] uppercase no-underline text-accent accent-glow'
 
 const themeToggle =
-  'border-0 bg-none font-mono text-[14px] text-white/95 px-2.5 py-1.5 cursor-pointer hover:text-accent hover:[text-shadow:0_0_8px_rgba(91,141,239,0.6)]'
+  'border-0 bg-none font-mono text-[14px] text-white/95 px-2.5 py-1.5 cursor-pointer hover:text-accent hover-accent-glow'
 
 export default function Chrome() {
   const location = useLocation()
@@ -83,7 +83,7 @@ export default function Chrome() {
           />
           <span
             id="logo"
-            className="font-mono text-[18px] uppercase whitespace-nowrap text-white/90 tracking-[0] group-hover:text-white night:group-hover:text-accent night:group-hover:[text-shadow:0_0_8px_rgba(91,141,239,0.6)]"
+            className="accent-glow-target font-mono text-[18px] uppercase whitespace-nowrap text-white/90 tracking-[0] group-hover:text-accent"
           >
             FURNACE
           </span>

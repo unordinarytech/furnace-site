@@ -34,7 +34,7 @@ function renderInline(text) {
   return nodes
 }
 
-function CopyButton({ code }) {
+function CopyButton({ code, centered = false }) {
   const [copied, setCopied] = useState(false)
 
   const handleCopy = () => {
@@ -49,7 +49,7 @@ function CopyButton({ code }) {
       type="button"
       onClick={handleCopy}
       aria-label="Copy code"
-      className="absolute top-2.5 right-2.5 font-chrome text-[11px] uppercase tracking-[0.05em] px-2.5 py-1.5 border border-[rgba(28,27,26,0.15)] night:border-white/15 bg-[rgba(250,250,249,0.9)] night:bg-[rgba(20,20,22,0.9)] text-[rgba(28,27,26,0.7)] night:text-white/70 cursor-pointer transition-colors duration-150 hover:text-accent hover:border-accent/50"
+      className={`absolute right-2.5 ${centered ? 'top-1/2 -translate-y-1/2' : 'top-2.5'} font-chrome text-[11px] uppercase tracking-[0.05em] px-2.5 py-1.5 border border-[rgba(28,27,26,0.15)] night:border-white/15 bg-[rgba(250,250,249,0.9)] night:bg-[rgba(20,20,22,0.9)] text-[rgba(28,27,26,0.7)] night:text-white/70 cursor-pointer transition-colors duration-150 hover:text-accent hover:border-accent/50`}
     >
       {copied ? 'Copied' : 'Copy'}
     </button>
@@ -177,7 +177,7 @@ export function renderMarkdownReact(source) {
         const code = codeLines.join('\n')
         blocks.push(
           <div key={blocks.length} className="relative m-0 mb-5">
-            <CopyButton code={code} />
+            <CopyButton code={code} centered={codeLines.length === 1} />
             <pre className="bg-[rgba(28,27,26,0.06)] night:bg-white/5 border border-[rgba(28,27,26,0.1)] night:border-white/8 px-5 py-[18px] overflow-x-auto m-0 mb-5">
               <code className={`block whitespace-pre bg-transparent p-0 text-[13px] leading-[1.8] font-chrome text-[#1c1b1a] night:text-white/95 ${codeLang ? `language-${codeLang}` : ''}`}>
                 {code}

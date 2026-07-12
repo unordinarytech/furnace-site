@@ -3,13 +3,22 @@
 @custom-variant night (&:where(.theme-night, .theme-night *));
 
 @theme {
-  --color-accent: #5B8DEF;
+  --color-accent: #ffe14d;
   --font-mono: 'Departure Mono', ui-monospace, monospace;
   --font-chrome: 'Geist Mono', ui-monospace, monospace;
   --font-serif: 'Libre Baskerville', Baskerville, serif;
 }
 
 @layer base {
+  html {
+    --accent-glow: rgba(255, 225, 77, 0.8);
+  }
+
+  .theme-night {
+    --color-accent: #5B8DEF;
+    --accent-glow: rgba(91, 141, 239, 0.8);
+  }
+
   html,
   body {
     margin: 0;
@@ -21,7 +30,7 @@
 
   html:not(.theme-night),
   html:not(.theme-night) body {
-    background: #807f7a;
+    background: #827f70;
   }
 
   #root {
@@ -52,12 +61,33 @@
 
 .word-reveal {
   opacity: 1;
-  color: #5B8DEF;
+  color: var(--color-accent);
   animation: word-settle 0ms 80ms forwards;
+}
+
+.accent-glow {
+  text-shadow: 0 0 8px var(--accent-glow);
+}
+
+.hover-accent-glow:hover {
+  text-shadow: 0 0 8px var(--accent-glow);
+}
+
+.hover-accent-glow-strong:hover {
+  text-shadow: 0 0 12px var(--accent-glow);
+}
+
+.group:hover .accent-glow-target {
+  text-shadow: 0 0 8px var(--accent-glow);
 }
 
 @keyframes word-settle {
   to { color: #ffffff; }
+}
+
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 @keyframes coin-spin {

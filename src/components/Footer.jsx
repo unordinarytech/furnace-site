@@ -5,7 +5,6 @@ const NIHAL = { key: 'nihal', name: 'Nihal Rahman', handle: '@nihaliscoding', hr
 const RONISH = { key: 'ronish', name: 'Ronish Rohan', handle: '@ronish1o', href: 'https://x.com/ronish1o' }
 
 function PersonInfo({ person, align }) {
-  // align: 'start' = top-left slot, 'end' = bottom-right slot
   const isStart = align === 'start'
   return (
     <div className={`flex flex-col gap-1 ${isStart ? 'items-start' : 'items-end'}`}>
@@ -19,6 +18,51 @@ function PersonInfo({ person, align }) {
       >
         on X ↗
       </a>
+    </div>
+  )
+}
+
+const ORBIT_TEXT = 'CLICK · CLICK · CLICK · '
+const ORBIT_CHARS = [...ORBIT_TEXT]
+const ORBIT_RADIUS = 55
+
+function OrbitClicks({ visible }) {
+  const total = ORBIT_CHARS.length
+  return (
+    <div className={`absolute inset-0 pointer-events-none transition-opacity duration-200 ${visible ? 'opacity-100' : 'opacity-0'}`}>
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          transformOrigin: '50% 50%',
+          animation: 'orbit-spin 5s linear infinite',
+        }}
+      >
+        {ORBIT_CHARS.map((char, i) => {
+          const deg = (i / total) * 360
+          return (
+            <span
+              key={i}
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: `translate(-50%, -50%) rotate(${deg}deg) translateY(-${ORBIT_RADIUS}px)`,
+                transformOrigin: '50% 50%',
+                display: 'inline-block',
+                fontSize: '9px',
+                fontFamily: 'var(--font-mono)',
+                fontWeight: '700',
+                color: 'rgba(255,255,255,0.55)',
+                userSelect: 'none',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {char}
+            </span>
+          )
+        })}
+      </div>
     </div>
   )
 }
@@ -81,32 +125,46 @@ export default function Footer() {
         by
       </span>
       <div className="relative z-[1] h-[228px] w-[228px]">
-        {/* Slot A — top-left: nihal's coin, or ronish's info when ronish is hovered */}
-        <div className="absolute left-0 top-0 w-[120px] h-[120px] flex items-start justify-start">
+        {/* Slot A — top-left */}
+        <div className="absolute left-0 top-0 w-[120px] h-[120px]">
           <div
             className={`absolute inset-0 transition-opacity duration-200 ${hovered === 'ronish' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
             onMouseEnter={() => setHovered('nihal')}
             onMouseLeave={() => setHovered(null)}
           >
-            <a href={NIHAL.href} target="_blank" rel="noopener noreferrer" aria-label="Nihal on X" className="block">
-              <Coin size={120} normalMap="/nihal_normal.png" showRing={hovered === 'nihal'} />
+            <a
+              href={NIHAL.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Nihal on X"
+              className={`block transition-transform duration-300 origin-center ${hovered === 'nihal' ? 'scale-[0.72]' : 'scale-100'}`}
+            >
+              <Coin size={120} normalMap="/nihal_normal.png" showRing={false} />
             </a>
+            <OrbitClicks visible={hovered === 'nihal'} />
           </div>
           <div className={`absolute inset-0 flex items-start justify-start transition-opacity duration-200 ${hovered === 'ronish' ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
             <PersonInfo person={RONISH} align="start" />
           </div>
         </div>
 
-        {/* Slot B — bottom-right: ronish's coin, or nihal's info when nihal is hovered */}
-        <div className="absolute bottom-0 right-0 w-[120px] h-[120px] flex items-end justify-end">
+        {/* Slot B — bottom-right */}
+        <div className="absolute bottom-0 right-0 w-[120px] h-[120px]">
           <div
             className={`absolute inset-0 transition-opacity duration-200 ${hovered === 'nihal' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
             onMouseEnter={() => setHovered('ronish')}
             onMouseLeave={() => setHovered(null)}
           >
-            <a href={RONISH.href} target="_blank" rel="noopener noreferrer" aria-label="Ronish on X" className="block">
-              <Coin size={120} normalMap="/ronish_normal.png" flipX showRing={hovered === 'ronish'} />
+            <a
+              href={RONISH.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Ronish on X"
+              className={`block transition-transform duration-300 origin-center ${hovered === 'ronish' ? 'scale-[0.72]' : 'scale-100'}`}
+            >
+              <Coin size={120} normalMap="/ronish_normal.png" flipX showRing={false} />
             </a>
+            <OrbitClicks visible={hovered === 'ronish'} />
           </div>
           <div className={`absolute inset-0 flex items-end justify-end transition-opacity duration-200 ${hovered === 'nihal' ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
             <PersonInfo person={NIHAL} align="end" />

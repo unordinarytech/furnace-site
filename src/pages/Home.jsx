@@ -108,7 +108,7 @@ export default function Home() {
             <W r={r} idx={13}>into</W>{' '}
             <W r={r} idx={14}>
               <a
-                className="text-inherit no-underline underline [text-decoration-thickness:0.03em] [text-underline-offset:0.08em] cursor-pointer hover:text-accent hover:[text-shadow:0_0_12px_rgba(91,141,239,0.8)]"
+                className="text-inherit no-underline underline [text-decoration-thickness:0.03em] [text-underline-offset:0.08em] cursor-pointer hover:text-accent hover-accent-glow-strong"
                 href="https://github.com/amoreX/furnace"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -120,7 +120,7 @@ export default function Home() {
               <W r={r} idx={17}>the</W>{' '}
               <W r={r} idx={18}>
                 <a
-                  className="text-inherit no-underline underline [text-decoration-thickness:0.03em] [text-underline-offset:0.08em] cursor-pointer hover:text-accent hover:[text-shadow:0_0_12px_rgba(91,141,239,0.8)]"
+                  className="text-inherit no-underline underline [text-decoration-thickness:0.03em] [text-underline-offset:0.08em] cursor-pointer hover:text-accent hover-accent-glow-strong"
                   href="https://github.com/amoreX/furnace"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -163,7 +163,7 @@ export default function Home() {
       </section>
 
       <section id="features-section" className="relative flex items-center justify-center px-6 md:px-[75px] py-[40px] min-h-screen">
-        <div className="w-[min(1100px,92vw)] h-[60vh]">
+        <div className="w-[92vw] md:w-[60vw] h-[60vh]">
           <div className="grid grid-cols-2 grid-rows-[1fr_1fr] gap-4 h-full">
             {FEATURES.map((f, i) => (
               <div
@@ -181,11 +181,11 @@ export default function Home() {
                 >
                   <div
                     className={`h-full flex flex-col justify-between p-6 border text-left outline outline-1 outline-offset-4 transition-[color,border-color,outline-color] duration-300 ${
-                      hovered === i ? 'border-white/70 outline-white/50 night:border-accent/70 night:outline-accent/50' : 'border-white/8 outline-transparent'
+                      hovered === i ? 'border-accent/70 outline-accent/50' : 'border-white/8 outline-transparent'
                     }`}
                   >
-                    <span className={`font-mono font-bold uppercase text-[13px] tracking-[0.1em] transition-colors duration-300 ${hovered === i ? 'text-white night:text-accent' : 'text-white/95'}`}>{f.name}</span>
-                    <span className={`font-serif text-[15px] leading-[1.6] transition-colors duration-300 ${hovered === i ? 'text-white/80 night:text-accent/80' : 'text-white/65'}`}>{f.desc}</span>
+                    <span className={`font-mono font-bold uppercase text-[13px] tracking-[0.1em] transition-colors duration-300 ${hovered === i ? 'text-accent' : 'text-white/95'}`}>{f.name}</span>
+                    <span className={`font-serif text-[15px] leading-[1.6] transition-colors duration-300 ${hovered === i ? 'text-accent/80' : 'text-white/65'}`}>{f.desc}</span>
                   </div>
                 </GraphCardBackground>
               </div>

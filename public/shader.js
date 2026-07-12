@@ -116,8 +116,8 @@
       // --- Matte concrete palette per theme ---
       vec3 baseNight  = vec3(0.080, 0.080, 0.083);
       vec3 lightNight = vec3(0.357, 0.553, 0.937);  // blue accent #5B8DEF
-      vec3 baseDay    = vec3(0.50, 0.50, 0.47);
-      vec3 lightDay   = vec3(1.0, 1.0, 1.0);         // uncolored white in day mode
+      vec3 baseDay    = vec3(0.51, 0.50, 0.44);
+      vec3 lightDay   = vec3(1.0, 0.94, 0.72);         // subtle warm light in day mode
 
       vec3 base = mix(baseDay,  baseNight,  uNight);
       vec3 lcol = mix(lightDay, lightNight, uNight);
