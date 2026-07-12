@@ -74,6 +74,7 @@ export default function Home() {
   const aboutVisible = useHalfVisible(aboutRef)
   const [rAbout] = useWordReveal(ABOUT_WORD_COUNT, 700, aboutVisible)
 
+
   const handleCopy = () => {
     navigator.clipboard.writeText(INSTALL_CMD).then(() => {
       setCopied(true)
@@ -161,26 +162,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="about-section" ref={aboutRef} className="relative min-h-screen flex items-center justify-center text-center px-6 md:px-[75px]">
-        <div className="font-serif text-[clamp(18px,1.8vw,28px)] leading-[1.5] font-normal max-w-[760px] text-white/90">
-          {aboutParagraphs.map((paragraph, pIdx) => {
-            const offset = aboutParagraphs.slice(0, pIdx).reduce((acc, p) => acc + p.split(' ').length, 0)
-            const words = paragraph.split(' ')
-            return (
-              <p key={pIdx} className={pIdx === 0 ? 'm-0' : 'm-0 mt-6'}>
-                {words.map((word, wIdx) => (
-                  <W key={wIdx} r={rAbout} idx={offset + wIdx}>
-                    {wIdx < words.length - 1 ? word + ' ' : word}
-                  </W>
-                ))}
-              </p>
-            )
-          })}
-        </div>
-      </section>
-
       <section id="features-section" className="relative flex items-center justify-center px-6 md:px-[75px] py-[40px] min-h-screen">
-        <div className="w-[min(860px,92vw)] h-[60vh]">
+        <div className="w-[min(1100px,92vw)] h-[60vh]">
           <div className="grid grid-cols-2 grid-rows-[1fr_1fr] gap-4 h-full">
             {FEATURES.map((f, i) => (
               <div
@@ -208,6 +191,24 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section id="about-section" ref={aboutRef} className="relative min-h-screen flex items-center justify-center text-center px-6 md:px-[75px]">
+        <div className="font-serif text-[clamp(18px,1.8vw,28px)] leading-[1.5] font-normal max-w-[760px] text-white/90">
+          {aboutParagraphs.map((paragraph, pIdx) => {
+            const offset = aboutParagraphs.slice(0, pIdx).reduce((acc, p) => acc + p.split(' ').length, 0)
+            const words = paragraph.split(' ')
+            return (
+              <p key={pIdx} className={pIdx === 0 ? 'm-0' : 'm-0 mt-6'}>
+                {words.map((word, wIdx) => (
+                  <W key={wIdx} r={rAbout} idx={offset + wIdx}>
+                    {wIdx < words.length - 1 ? word + ' ' : word}
+                  </W>
+                ))}
+              </p>
+            )
+          })}
         </div>
       </section>
     </>

@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
-export default function Coin({ size = 92, normalMap = '/nihal_normal.png', flipX = false }) {
+export default function Coin({ size = 92, normalMap = '/nihal_normal.png', flipX = false, showRing = false }) {
   const canvasRef = useRef(null)
   const rafRef = useRef(null)
   const pointerRef = useRef({ x: null, y: null })
-  const [hovered, setHovered] = useState(false)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -29,11 +28,20 @@ export default function Coin({ size = 92, normalMap = '/nihal_normal.png', flipX
         vec2 centered = uv * 2.0 - 1.0;
         float r = length(centered);
 
-        float alpha = 1.0 - smoothstep(0.98, 1.0, r);
+        float edgeWidth = 2.0 / min(uResolution.x, uResolution.y);
+        float alpha = 1.0 - smoothstep(1.0 - edgeWidth, 1.0, r);
         if (alpha <= 0.0) discard;
 
         float sx = mix(uv.x, 1.0 - uv.x, uFlipX);
-        vec3 n = texture2D(uNormalMap, vec2(sx, 1.0 - uv.y)).rgb * 2.0 - 1.0;
+        vec2 normalUv = vec2(sx, 1.0 - uv.y);
+        vec2 texel = 1.0 / uResolution;
+        vec3 normalSample =
+          texture2D(uNormalMap, normalUv).rgb * 0.50 +
+          texture2D(uNormalMap, normalUv + vec2(texel.x, 0.0)).rgb * 0.125 +
+          texture2D(uNormalMap, normalUv - vec2(texel.x, 0.0)).rgb * 0.125 +
+          texture2D(uNormalMap, normalUv + vec2(0.0, texel.y)).rgb * 0.125 +
+          texture2D(uNormalMap, normalUv - vec2(0.0, texel.y)).rgb * 0.125;
+        vec3 n = normalSample * 2.0 - 1.0;
         n.y = -n.y;
         n.x = mix(n.x, -n.x, uFlipX);
         n.xy *= 0.45;
@@ -117,11 +125,11 @@ export default function Coin({ size = 92, normalMap = '/nihal_normal.png', flipX
     gl.activeTexture(gl.TEXTURE0)
     gl.uniform1i(uni.normalMap, 0)
 
-    let W = 0, H = 0, dpr = 1
+    let W = 0, H = 0
     function resize() {
-      dpr = Math.min(window.devicePixelRatio || 1, 2)
-      W = canvas.width = Math.floor(canvas.offsetWidth * dpr)
-      H = canvas.height = Math.floor(canvas.offsetHeight * dpr)
+      // Render at 2× CSS size then scale down for built-in supersampling
+      W = canvas.width = Math.floor(canvas.offsetWidth * 2)
+      H = canvas.height = Math.floor(canvas.offsetHeight * 2)
       gl.viewport(0, 0, W, H)
     }
     resize()
@@ -182,12 +190,10 @@ export default function Coin({ size = 92, normalMap = '/nihal_normal.png', flipX
     <div
       className="relative cursor-pointer"
       style={{ width: `${size}px`, height: `${size}px` }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
     >
       <div
         className="pointer-events-none absolute inset-0 rounded-full transition-[box-shadow] duration-300 ease-out"
-        style={{ boxShadow: `0 0 0 ${hovered ? 8 : 0}px rgba(255,255,255,0.2)` }}
+        style={{ boxShadow: `0 0 0 ${showRing ? 8 : 0}px rgba(255,255,255,0.2)` }}
       />
       <canvas ref={canvasRef} aria-hidden="true" className="h-full w-full" />
     </div>
