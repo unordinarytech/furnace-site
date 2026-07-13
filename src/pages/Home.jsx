@@ -95,6 +95,14 @@ export default function Home() {
   return (
     <>
       <section className="relative min-h-screen flex items-center justify-center text-center px-6 md:px-[75px] pb-[80px] pt-[4vh]">
+        <a
+          href="https://github.com/amoreX/furnace/issues"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute top-[75px] left-1/2 -translate-x-1/2 no-underline px-3 py-1.5 font-mono text-[12px] uppercase tracking-[0.06em] border border-accent/70 bg-accent/15 text-accent outline outline-1 outline-transparent outline-offset-4 hover:bg-accent/25 hover:outline-accent/50 transition-[background-color,outline-color] duration-200 whitespace-nowrap"
+        >
+          Early stages, open an issue if something feels off
+        </a>
         <div className="flex flex-col items-center gap-8">
           <p className="m-0 mt-[50px] font-serif text-[clamp(20px,2.2vw,34px)] leading-[1.3] font-normal max-w-[820px] text-white/95">
             <W r={r} idx={0}>We</W>{' '}

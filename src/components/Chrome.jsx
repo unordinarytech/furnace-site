@@ -112,15 +112,34 @@ export default function Chrome() {
 
       {/* Footer label — bottom left */}
       {!isDocs && (
-        <a
-          id="site-footer"
-          href="https://www.npmjs.com/package/cook-furnace"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="fixed bottom-[75px] left-[75px] z-[200] font-mono text-[14px] text-white/95 px-2.5 py-1.5 no-underline hover:underline cursor-pointer"
-        >
-          FURNACE · v{animatedVersion}
-        </a>
+        <div className="fixed bottom-[75px] left-[75px] z-[200] flex items-center gap-3">
+          <a
+            id="site-footer"
+            href="https://www.npmjs.com/package/cook-furnace"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-[14px] text-white/95 px-2.5 py-1.5 no-underline hover:underline cursor-pointer"
+          >
+            FURNACE · v{animatedVersion}
+          </a>
+          <span className="text-white/30 text-[10px] select-none">■</span>
+          <a
+            href="https://github.com/amoreX/furnace/issues"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-[14px] text-white/95 px-2.5 py-1.5 no-underline hover:underline cursor-pointer"
+          >
+            OPEN AN ISSUE
+          </a>
+          <span className="text-white/30 text-[10px] select-none">■</span>
+          <button
+            type="button"
+            onClick={() => { const root = document.getElementById('root'); if (root) root.scrollTo({ top: root.scrollHeight, behavior: 'smooth' }) }}
+            className="font-mono text-[14px] text-white/95 px-2.5 py-1.5 bg-transparent border-0 no-underline hover:underline cursor-pointer"
+          >
+            TALK TO US
+          </button>
+        </div>
       )}
 
       {/* Theme toggle — bottom right */}
