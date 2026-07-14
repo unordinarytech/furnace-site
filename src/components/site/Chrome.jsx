@@ -1,44 +1,10 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useTheme } from '../../hooks/useTheme.js'
-import CommandTeaser from './CommandTeaser.jsx'
+import CommandTeaser, { ScrambledText } from './CommandTeaser.jsx'
 
 const VERSION_FALLBACK = '0.0.0'
 const VERSION_PATTERN = /^\d+\.\d+\.\d+(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$/
-
-function useAnimatedVersion(target) {
-  const [display, setDisplay] = useState(VERSION_FALLBACK)
-  const rafRef = useRef(null)
-
-  useEffect(() => {
-    if (!target) return
-    const [, core, suffix = ''] = target.match(/^(\d+\.\d+\.\d+)(.*)$/) || []
-    if (!core) return
-    const parts = core.split('.').map(Number)
-    // Segments with target=0 stay at 0; others roll one full extra cycle before landing
-    const totals = parts.map((v) => (v === 0 ? 0 : v + 10))
-    const DURATION = 400
-    const start = performance.now()
-
-    function tick(now) {
-      const t = Math.min(Math.max((now - start) / DURATION, 0), 1)
-      const eased = 1 - Math.pow(1 - t, 3)
-      const current = parts.map((v, i) => {
-        if (v === 0) return 0
-        const raw = Math.floor(eased * totals[i])
-        return ((raw % 10) + 10) % 10  // safe modulo, always non-negative
-      })
-      setDisplay(`${current.join('.')}${suffix}`)
-      if (t < 1) rafRef.current = requestAnimationFrame(tick)
-      else setDisplay(target)
-    }
-
-    rafRef.current = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(rafRef.current)
-  }, [target])
-
-  return display
-}
 
 const chromeLink =
   'font-mono text-[12px] sm:text-[14px] uppercase text-white/95 no-underline cursor-pointer hover:text-accent hover-accent-glow'
@@ -54,7 +20,6 @@ export default function Chrome() {
   const navigate = useNavigate()
   const isDocs = location.pathname.startsWith('/docs')
   const [version, setVersion] = useState(VERSION_FALLBACK)
-  const animatedVersion = useAnimatedVersion(version)
   const { isNight, toggleTheme } = useTheme()
 
   useEffect(() => {
@@ -144,6 +109,9 @@ export default function Chrome() {
           >
             FURNACE
           </span>
+          <span className="font-mono text-[18px] text-white/55 whitespace-nowrap group-hover:text-accent">
+            · <ScrambledText command={`v${version}`} label="Furnace version" />
+          </span>
         </Link>
       )}
 
@@ -180,21 +148,12 @@ export default function Chrome() {
       {!isDocs && (
         <div className="fixed bottom-[75px] left-[75px] right-[180px] z-[200] hidden md:flex items-center gap-3 min-w-0">
           <a
-            href="https://www.npmjs.com/package/cook-furnace"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-mono text-[11px] sm:text-[14px] text-white/95 px-1 sm:px-2.5 py-1.5 no-underline hover:underline cursor-pointer whitespace-nowrap"
-          >
-            FURNACE · v{animatedVersion}
-          </a>
-          <span className="text-white/30 text-[8px] sm:text-[10px] select-none">■</span>
-          <a
             href="https://github.com/amoreX/furnace/issues"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-[11px] sm:text-[14px] text-white/95 px-1 sm:px-2.5 py-1.5 no-underline hover:underline cursor-pointer whitespace-nowrap"
+            className="font-mono text-[14px] text-white/95 no-underline hover:underline cursor-pointer whitespace-nowrap"
           >
-            OPEN AN ISSUE
+            FOUND SOMETHING WRONG? OPEN AN ISSUE
           </a>
           <span className="text-white/30 text-[8px] sm:text-[10px] select-none min-[2000px]:hidden">■</span>
           <div className="min-w-0 overflow-hidden min-[2000px]:hidden">

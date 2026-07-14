@@ -86,14 +86,6 @@ export default function Home() {
   return (
     <>
       <section className="relative min-h-screen flex items-center justify-center text-center px-4 sm:px-6 md:px-[75px] pb-[96px] md:pb-[80px] pt-[72px] md:pt-[4vh]">
-        <a
-          href="https://github.com/amoreX/furnace/issues"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="absolute top-[56px] md:top-[75px] left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[calc(100%-2rem)] md:w-auto md:max-w-max no-underline px-3 py-1.5 font-mono text-[10px] sm:text-[12px] uppercase tracking-[0.06em] border border-accent/70 bg-accent/15 text-accent outline outline-1 outline-transparent outline-offset-4 hover:bg-accent/25 hover:outline-accent/50 transition-[background-color,outline-color] duration-200 text-center leading-[1.35] md:whitespace-nowrap"
-        >
-          Early stages, open an issue if something feels off
-        </a>
         <CommandTeaser className="absolute bottom-[75px] left-1/2 hidden min-[2000px]:block -translate-x-1/2 font-mono text-[14px] text-white/65 whitespace-nowrap" />
         <div className="flex flex-col items-center gap-6 sm:gap-8">
           <p className="m-0 mt-[46px] sm:mt-[50px] font-serif text-[clamp(19px,5.2vw,34px)] leading-[1.35] sm:leading-[1.3] font-normal max-w-[820px] text-white/95">

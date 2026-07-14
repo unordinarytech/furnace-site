@@ -102,7 +102,7 @@ test('accepts a prerelease package version', async ({ page }) => {
   )
   await page.goto('/')
 
-  await expect(page.getByRole('link', { name: 'FURNACE · v9.8.7-rc.1' })).toBeVisible()
+  await expect(page.getByText('v9.8.7-rc.1', { exact: true })).toBeVisible()
 })
 
 test('keeps the version fallback for a malformed registry response', async ({ page }) => {
@@ -114,7 +114,7 @@ test('keeps the version fallback for a malformed registry response', async ({ pa
   )
   await page.goto('/')
 
-  await expect(page.getByRole('link', { name: 'FURNACE · v0.0.0' })).toBeVisible()
+  await expect(page.getByText('v0.0.0', { exact: true })).toBeVisible()
 })
 
 for (const [name, routeHandler] of [
@@ -125,7 +125,7 @@ for (const [name, routeHandler] of [
     await page.route('https://registry.npmjs.org/cook-furnace/latest', routeHandler)
     await page.goto('/')
 
-    await expect(page.getByRole('link', { name: 'FURNACE · v0.0.0' })).toBeVisible()
+    await expect(page.getByText('v0.0.0', { exact: true })).toBeVisible()
   })
 }
 
@@ -184,8 +184,7 @@ test('keeps package, repository, issue, and contributor links external', async (
 
   const expectedLinks = [
     ['GitHub', 'https://github.com/amoreX/furnace'],
-    ['FURNACE · v9.8.7', 'https://www.npmjs.com/package/cook-furnace'],
-    ['OPEN AN ISSUE', 'https://github.com/amoreX/furnace/issues'],
+    ['FOUND SOMETHING WRONG? OPEN AN ISSUE', 'https://github.com/amoreX/furnace/issues'],
     ['Nihal on X', 'https://x.com/nihaliscoding'],
     ['Ronish on X', 'https://x.com/ronish1o'],
   ]

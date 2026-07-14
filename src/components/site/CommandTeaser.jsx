@@ -16,7 +16,7 @@ const COMMANDS = [
 
 const SCRAMBLE_GLYPHS = '!<>-_\\/[]{}—=+*^?#________'
 
-function ScrambledText({ command }) {
+export function ScrambledText({ command, label = 'Furnace slash commands' }) {
   const [characters, setCharacters] = useState(() => (
     command.split('').map((value) => ({ value, isDud: false }))
   ))
@@ -94,7 +94,7 @@ function ScrambledText({ command }) {
           <span key={index} className={isDud ? 'text-white/35' : undefined}>{value}</span>
         ))}
       </span>
-      <span className="sr-only">Furnace slash commands</span>
+      <span className="sr-only">{label}</span>
     </>
   )
 }
