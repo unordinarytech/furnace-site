@@ -206,3 +206,20 @@ test('keeps primary navigation available at a phone viewport', async ({ page }) 
   await expect(page.getByRole('link', { name: 'Configuration' })).toBeVisible()
   await expect(page.locator('main')).toContainText('Configuration')
 })
+
+for (const viewport of [
+  { name: 'phone', width: 360, height: 800 },
+  { name: 'tablet', width: 768, height: 1024 },
+  { name: 'desktop', width: 1280, height: 800 },
+]) {
+  test(`keeps every primary route within the ${viewport.name} viewport`, async ({ page }) => {
+    await page.setViewportSize(viewport)
+
+    for (const path of ['/', '/features', '/docs/getting-started']) {
+      await page.goto(path, { waitUntil: 'networkidle' })
+      await expect
+        .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth))
+        .toBe(true)
+    }
+  })
+}

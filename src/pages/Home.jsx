@@ -84,17 +84,17 @@ export default function Home() {
 
   return (
     <>
-      <section className="relative min-h-screen flex items-center justify-center text-center px-6 md:px-[75px] pb-[80px] pt-[4vh]">
+      <section className="relative min-h-screen flex items-center justify-center text-center px-4 sm:px-6 md:px-[75px] pb-[96px] md:pb-[80px] pt-[72px] md:pt-[4vh]">
         <a
           href="https://github.com/amoreX/furnace/issues"
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute top-[75px] left-1/2 -translate-x-1/2 no-underline px-3 py-1.5 font-mono text-[12px] uppercase tracking-[0.06em] border border-accent/70 bg-accent/15 text-accent outline outline-1 outline-transparent outline-offset-4 hover:bg-accent/25 hover:outline-accent/50 transition-[background-color,outline-color] duration-200 whitespace-nowrap"
+          className="absolute top-[56px] md:top-[75px] left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[calc(100%-2rem)] md:w-auto md:max-w-max no-underline px-3 py-1.5 font-mono text-[10px] sm:text-[12px] uppercase tracking-[0.06em] border border-accent/70 bg-accent/15 text-accent outline outline-1 outline-transparent outline-offset-4 hover:bg-accent/25 hover:outline-accent/50 transition-[background-color,outline-color] duration-200 text-center leading-[1.35] md:whitespace-nowrap"
         >
           Early stages, open an issue if something feels off
         </a>
-        <div className="flex flex-col items-center gap-8">
-          <p className="m-0 mt-[50px] font-serif text-[clamp(20px,2.2vw,34px)] leading-[1.3] font-normal max-w-[820px] text-white/95">
+        <div className="flex flex-col items-center gap-6 sm:gap-8">
+          <p className="m-0 mt-[46px] sm:mt-[50px] font-serif text-[clamp(19px,5.2vw,34px)] leading-[1.35] sm:leading-[1.3] font-normal max-w-[820px] text-white/95">
             <W r={r} idx={0}>We</W>{' '}
             <W r={r} idx={1}>studied</W>{' '}
             <W r={r} idx={2}>what</W>{' '}
@@ -117,7 +117,7 @@ export default function Home() {
                 rel="noopener noreferrer"
               >Furnace</a>.
             </W>
-            <span className="block mt-7">
+            <span className="block mt-5 sm:mt-7">
               <W r={r} idx={15}>Built</W>{' '}
               <W r={r} idx={16}>in</W>{' '}
               <W r={r} idx={17}>the</W>{' '}
@@ -141,10 +141,10 @@ export default function Home() {
             </span>
           </p>
 
-          <div className={`flex items-center justify-center gap-3.5 flex-wrap transition-opacity duration-300 ${allDone ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+          <div className={`flex w-full items-center justify-center gap-3 sm:gap-3.5 flex-wrap transition-opacity duration-300 ${allDone ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
             <button
               type="button"
-              className={`${installBase} ${installState}`}
+              className={`${installBase} max-w-full px-4 sm:px-[22px] text-[12px] sm:text-[14px] ${installState}`}
               onClick={() => copy(INSTALL_CMD)}
             >
               <code className={`whitespace-nowrap transition-opacity duration-150 ${copied ? 'opacity-0' : 'opacity-100'}`}>
@@ -158,7 +158,7 @@ export default function Home() {
             </button>
             <Link
               to="/docs"
-              className="relative h-12 inline-flex items-center justify-center px-[22px] font-mono text-[14px] uppercase tracking-[0.05em] no-underline text-white border border-white/50 bg-white/10 transition-[background-color,color,border-color] duration-200 hover:bg-white/20 hover:border-white/80 hover:text-white after:content-[''] after:absolute after:inset-[-4px] after:border after:border-white/50 after:opacity-0 after:transition-opacity after:duration-200 after:pointer-events-none hover:after:opacity-100 night:text-accent/92 night:border-accent/50 night:bg-transparent night:hover:bg-accent/12 night:hover:border-accent/80 night:hover:text-accent night:after:border-accent/50"
+              className="relative h-12 inline-flex items-center justify-center px-4 sm:px-[22px] font-mono text-[12px] sm:text-[14px] uppercase tracking-[0.05em] no-underline text-white border border-white/50 bg-white/10 transition-[background-color,color,border-color] duration-200 hover:bg-white/20 hover:border-white/80 hover:text-white after:content-[''] after:absolute after:inset-[-4px] after:border after:border-white/50 after:opacity-0 after:transition-opacity after:duration-200 after:pointer-events-none hover:after:opacity-100 night:text-accent/92 night:border-accent/50 night:bg-transparent night:hover:bg-accent/12 night:hover:border-accent/80 night:hover:text-accent night:after:border-accent/50"
             >
               Docs
             </Link>
@@ -166,11 +166,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="features-section" className="relative flex items-center justify-center px-6 md:px-[75px] py-[40px] min-h-screen">
+      <section id="features-section" className="relative flex items-center justify-center px-4 sm:px-6 md:px-[75px] py-16 md:py-[40px] min-h-screen">
         <FeatureGrid variant="home" />
       </section>
 
-      <section id="about-section" ref={aboutRef} className="relative min-h-screen flex items-center justify-center text-center px-6 md:px-[75px]">
+      <section id="about-section" ref={aboutRef} className="relative min-h-screen flex items-center justify-center text-center px-4 sm:px-6 md:px-[75px] py-24 md:py-0">
         <div className="font-serif text-[clamp(18px,1.8vw,28px)] leading-[1.5] font-normal max-w-[760px] text-white/90">
           {aboutParagraphs.map((paragraph, pIdx) => {
             const offset = aboutParagraphs.slice(0, pIdx).reduce((acc, p) => acc + p.split(' ').length, 0)

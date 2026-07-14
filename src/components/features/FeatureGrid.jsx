@@ -4,12 +4,12 @@ import GraphCardBackground from './GraphCardBackground.jsx'
 
 const variants = {
   home: {
-    frame: 'w-[92vw] md:w-[60vw] h-[60vh]',
+    frame: 'w-full max-w-[520px] md:w-[60vw] md:max-w-none md:h-[60vh]',
     name: 'font-mono font-bold uppercase text-[13px] tracking-[0.1em]',
     description: 'font-serif text-[15px] leading-[1.6]',
   },
   standalone: {
-    frame: 'w-[min(860px,92vw)] h-[60vh] mx-auto',
+    frame: 'w-full max-w-[520px] md:w-[min(860px,92vw)] md:max-w-none md:h-[60vh] mx-auto',
     name: 'font-bold uppercase text-[12px] tracking-[0.1em]',
     description: 'leading-[1.6]',
   },
@@ -25,11 +25,11 @@ export default function FeatureGrid({ variant }) {
 
   return (
     <div className={styles.frame}>
-      <div className="grid grid-cols-2 grid-rows-[1fr_1fr] gap-4 h-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-[1fr_1fr] gap-4 h-full">
         {FEATURES.map((feature, index) => (
           <div
             key={feature.name}
-            className="h-full"
+            className="min-h-[220px] md:min-h-0 h-full"
             onMouseEnter={() => setHovered(index)}
             onMouseLeave={() => setHovered(null)}
           >
@@ -41,7 +41,7 @@ export default function FeatureGrid({ variant }) {
               dim={hovered !== null && hovered !== index}
             >
               <div
-                className={`h-full flex flex-col justify-between p-6 border text-left outline outline-1 outline-offset-4 transition-[color,border-color,outline-color] duration-300 ${
+                className={`h-full flex flex-col justify-between p-5 sm:p-6 border text-left outline outline-1 outline-offset-4 transition-[color,border-color,outline-color] duration-300 ${
                   hovered === index ? 'border-accent/70 outline-accent/50' : 'border-white/8 outline-transparent'
                 }`}
               >

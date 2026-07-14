@@ -72,14 +72,14 @@ export default function Footer() {
   const [hovered, setHovered] = useState(null) // 'nihal' | 'ronish' | null
 
   return (
-    <footer id="site-footer" className="relative z-[2000] bg-[#0e0e0e] flex items-center justify-center gap-[clamp(16px,3vw,48px)] px-6 md:px-[75px] py-[80px] overflow-hidden">
-      <div className="font-mono text-[clamp(64px,12vw,160px)] font-bold text-white/90 uppercase tracking-[-0.02em] leading-none relative z-[1] select-none">
+    <footer id="site-footer" className="relative z-[2000] bg-[#0e0e0e] flex flex-col md:flex-row items-center justify-center gap-5 md:gap-[clamp(16px,3vw,48px)] px-4 sm:px-6 md:px-[75px] py-16 sm:py-[80px] overflow-hidden">
+      <div className="font-mono text-[clamp(52px,18vw,160px)] md:text-[clamp(64px,12vw,160px)] font-bold text-white/90 uppercase tracking-[-0.02em] leading-none relative z-[1] select-none">
         FURNACE
       </div>
-      <span className="font-serif italic text-[clamp(20px,3vw,40px)] text-white/70 relative z-[1] select-none">
+      <span className="hidden md:block font-serif italic text-[clamp(20px,3vw,40px)] text-white/70 relative z-[1] select-none">
         by
       </span>
-      <div className="relative z-[1] h-[228px] w-[228px]">
+      <div className="relative z-[1] hidden md:block h-[228px] w-[228px]">
         {/* Slot A — top-left */}
         <div className="absolute left-0 top-0 w-[120px] h-[120px]">
           <div
@@ -134,6 +134,27 @@ export default function Footer() {
             <PersonInfo person={NIHAL} align="end" />
           </div>
         </div>
+      </div>
+      <div className="relative z-[1] flex md:hidden items-center justify-center gap-3">
+        <span className="font-serif italic text-[26px] text-white/70 select-none">by</span>
+        <a
+          href={NIHAL.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Nihal on X"
+          className="block shrink-0"
+        >
+          <Coin size={88} normalMap="/assets/contributors/nihal-normal-map.png" />
+        </a>
+        <a
+          href={RONISH.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Ronish on X"
+          className="block shrink-0"
+        >
+          <Coin size={88} normalMap="/assets/contributors/ronish-normal-map.png" flipX />
+        </a>
       </div>
       <NoiseCanvas
         className="absolute inset-0 w-full h-full pointer-events-none z-[2]"

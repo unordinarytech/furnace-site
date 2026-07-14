@@ -70,8 +70,28 @@ test('features desktop', async ({ page }) => {
   await expect(page).toHaveScreenshot('features-desktop.png', screenshotOptions)
 })
 
+test('features mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await prepare(page, '/features')
+  await expect(page).toHaveScreenshot('features-mobile.png', screenshotOptions)
+})
+
+test('footer mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await prepare(page, '/')
+  const footer = page.locator('footer')
+  await footer.scrollIntoViewIfNeeded()
+  await expect(footer).toHaveScreenshot('footer-mobile.png', screenshotOptions)
+})
+
 test('docs desktop', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 })
   await prepare(page, '/docs/getting-started')
   await expect(page).toHaveScreenshot('docs-desktop.png', screenshotOptions)
+})
+
+test('docs mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await prepare(page, '/docs/getting-started')
+  await expect(page).toHaveScreenshot('docs-mobile.png', screenshotOptions)
 })
