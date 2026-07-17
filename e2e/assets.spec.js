@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { mockReleaseManifest } from './release-fixture.js'
 
 const BRAND_ASSET = '/assets/brand/furnace-logo.svg'
 const BACKGROUND_ASSET = '/assets/background/global-normal-map.png'
@@ -93,6 +94,7 @@ async function loadImage(page, src) {
 }
 
 test.beforeEach(async ({ context }) => {
+  await mockReleaseManifest(context)
   await context.route('https://registry.npmjs.org/cook-furnace/latest', (route) =>
     route.fulfill({
       contentType: 'application/json',

@@ -1,8 +1,10 @@
 import { useEffect } from 'react'
 import ReleaseList from '../components/changelog/ReleaseList.jsx'
-import releaseManifest from '../data/releases.json'
+import { RELEASE_MANIFEST_URL, useReleases } from '../hooks/useReleases.js'
 
 export default function Changelog() {
+  const { error, releases, status } = useReleases()
+
   useEffect(() => {
     const previousTitle = document.title
     document.title = 'Changelog · Furnace'
@@ -27,7 +29,28 @@ export default function Changelog() {
           </div>
         </header>
 
-        <ReleaseList releases={releaseManifest.releases} />
+        {status === 'loading' && (
+          <p role="status" className="border-t border-white/25 py-12 font-mono text-[13px] uppercase tracking-[0.12em] text-accent">
+            Loading releases from GitHub…
+          </p>
+        )}
+        {status === 'error' && (
+          <div role="alert" className="border-y border-white/25 py-12">
+            <p className="m-0 font-serif text-[clamp(22px,3vw,34px)] text-white">
+              The changelog could not be loaded.
+            </p>
+            <p className="mb-0 mt-4 font-chrome text-[14px] leading-7 text-white/70">
+              {error}{' '}
+              <a
+                href={RELEASE_MANIFEST_URL}
+                className="text-accent underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-4"
+              >
+                Open the release manifest directly.
+              </a>
+            </p>
+          </div>
+        )}
+        {status === 'ready' && <ReleaseList releases={releases} />}
       </div>
     </section>
   )

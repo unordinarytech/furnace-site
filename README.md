@@ -29,8 +29,10 @@ npm test            # Vitest unit/component suite
 npm run test:watch  # Vitest watch mode
 npm run test:e2e    # full Playwright suite
 npm run check       # unit tests, then production build
-npm run releases:sync # sync Git-derived release notes from Furnace
 ```
+
+The changelog reads `src/releases.json` directly from the Furnace GitHub
+repository at runtime and shows an explicit error if GitHub is unavailable.
 
 ## Project structure
 

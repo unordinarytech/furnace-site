@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { mockReleaseManifest } from './release-fixture.js'
 
 const screenshotOptions = {
   animations: 'disabled',
@@ -7,6 +8,7 @@ const screenshotOptions = {
 }
 
 test.beforeEach(async ({ context, page }) => {
+  await mockReleaseManifest(context)
   await context.route('https://registry.npmjs.org/cook-furnace/latest', (route) =>
     route.fulfill({
       contentType: 'application/json',

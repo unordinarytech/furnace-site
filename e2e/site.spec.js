@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { mockReleaseManifest, RELEASE_MANIFEST_URL, releaseManifestFixture } from './release-fixture.js'
 
 const routes = [
   ['/', /We studied what users love/],
@@ -13,6 +14,7 @@ const routes = [
 ]
 
 test.beforeEach(async ({ context, page }) => {
+  await mockReleaseManifest(context)
   await context.route('https://registry.npmjs.org/cook-furnace/latest', (route) =>
     route.fulfill({
       contentType: 'application/json',
@@ -68,12 +70,22 @@ test('changelog presents every reconstructed release and source evidence', async
   await page.goto('/changelog')
 
   await expect(page).toHaveTitle('Changelog · Furnace')
-  await expect(page.locator('ol > li')).toHaveCount(29)
-  await expect(page.getByRole('heading', { name: 'v0.2.4' })).toBeVisible()
-  await expect(page.getByText('Next', { exact: true })).toBeVisible()
+  await expect(page.locator('ol > li')).toHaveCount(releaseManifestFixture.releases.length)
+  await expect(page.getByRole('heading', { name: 'v0.2.5' })).toBeVisible()
+  await expect(page.getByText('Latest', { exact: true })).toBeVisible()
   await expect(page.getByText('Tagged · not published', { exact: true })).toBeVisible()
   await expect(page.getByRole('link', { name: 'View source commit for Furnace 0.2.3' }))
     .toHaveAttribute('href', /github\.com\/amoreX\/furnace\/commit\/802bf36/)
+})
+
+test('changelog shows a direct GitHub error instead of stale fallback data', async ({ page }) => {
+  await page.route(RELEASE_MANIFEST_URL, (route) => route.abort('failed'))
+  await page.goto('/changelog')
+
+  await expect(page.getByRole('alert')).toContainText('The changelog could not be loaded.')
+  await expect(page.getByRole('link', { name: 'Open the release manifest directly.' }))
+    .toHaveAttribute('href', RELEASE_MANIFEST_URL)
+  await expect(page.locator('ol > li')).toHaveCount(0)
 })
 
 test('mobile menu exposes changelog navigation and restores focus on Escape', async ({ page }) => {
