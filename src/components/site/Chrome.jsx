@@ -116,7 +116,7 @@ export default function Chrome() {
             <a href="#features-section" onClick={handleFeatures} className={chromeLink}>Features</a>
             <Link to="/docs" className={isDocs ? activeLink : chromeLink} aria-current={isDocs ? 'page' : undefined}>Docs</Link>
             <Link to="/changelog" className={isChangelog ? activeLink : chromeLink} aria-current={isChangelog ? 'page' : undefined}>Changelog</Link>
-            <a href="https://github.com/amoreX/furnace" target="_blank" rel="noopener noreferrer" className={chromeLink}>GitHub</a>
+            <a href="https://github.com/unordinarytech/furnace" target="_blank" rel="noopener noreferrer" className={chromeLink}>GitHub</a>
             {!isDocs && (
               <button type="button" onClick={handleTalkToUs} className={`${chromeLink} border-0 bg-transparent p-0`}>
                 Talk To Us
@@ -179,7 +179,7 @@ export default function Chrome() {
         >
           Changelog
         </Link>
-        <a href="https://github.com/amoreX/furnace" target="_blank" rel="noopener noreferrer" className={chromeLink}>
+        <a href="https://github.com/unordinarytech/furnace" target="_blank" rel="noopener noreferrer" className={chromeLink}>
           GitHub
         </a>
         {!isDocs && (
@@ -197,7 +197,7 @@ export default function Chrome() {
       {!isDocs && !isChangelog && (
         <div className="fixed bottom-[75px] left-[75px] right-[180px] z-[200] hidden md:flex items-center gap-3 min-w-0">
           <a
-            href="https://github.com/amoreX/furnace/issues"
+            href="https://github.com/unordinarytech/furnace/issues"
             target="_blank"
             rel="noopener noreferrer"
             className="font-mono text-[14px] text-white/95 no-underline hover:underline cursor-pointer whitespace-nowrap"

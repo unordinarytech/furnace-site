@@ -106,7 +106,7 @@ export default function Home() {
             <W r={r} idx={14}>
               <a
                 className="text-inherit no-underline underline [text-decoration-thickness:0.03em] [text-underline-offset:0.08em] cursor-pointer hover:text-accent hover-accent-glow-strong"
-                href="https://github.com/amoreX/furnace"
+                href="https://github.com/unordinarytech/furnace"
                 target="_blank"
                 rel="noopener noreferrer"
               >Furnace</a>.
@@ -118,7 +118,7 @@ export default function Home() {
               <W r={r} idx={18}>
                 <a
                   className="text-inherit no-underline underline [text-decoration-thickness:0.03em] [text-underline-offset:0.08em] cursor-pointer hover:text-accent hover-accent-glow-strong"
-                  href="https://github.com/amoreX/furnace"
+                  href="https://github.com/unordinarytech/furnace"
                   target="_blank"
                   rel="noopener noreferrer"
                 >open</a>,

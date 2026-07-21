@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 export const RELEASE_MANIFEST_URL =
-  'https://raw.githubusercontent.com/amoreX/furnace/main/src/releases.json'
+  'https://raw.githubusercontent.com/unordinarytech/furnace/main/src/releases.json'
 
 export function isReleaseManifest(value) {
   if (value?.schemaVersion !== 1 || !Array.isArray(value.releases) || value.releases.length === 0) {

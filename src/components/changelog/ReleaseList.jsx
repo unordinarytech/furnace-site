@@ -21,7 +21,7 @@ export default function ReleaseList({ releases }) {
       {releases.map((release, index) => {
         const marker = releaseMarker(release, latestPublishedVersion)
         const sourceUrl = release.commit
-          ? `https://github.com/amoreX/furnace/commit/${release.commit}`
+          ? `https://github.com/unordinarytech/furnace/commit/${release.commit}`
           : null
 
         return (

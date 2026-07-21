@@ -33,7 +33,7 @@ describe('ReleaseList', () => {
 
     const published = screen.getByRole('heading', { name: 'v0.2.3' }).closest('li')
     const source = within(published).getByRole('link', { name: /source commit/i })
-    expect(source).toHaveAttribute('href', 'https://github.com/amoreX/furnace/commit/802bf36d0ccd0e4ec9c8487573894f8864c9be64')
+    expect(source).toHaveAttribute('href', 'https://github.com/unordinarytech/furnace/commit/802bf36d0ccd0e4ec9c8487573894f8864c9be64')
     expect(source).toHaveAttribute('target', '_blank')
   })
 })
