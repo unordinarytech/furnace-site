@@ -4,7 +4,7 @@ import FeatureGrid from '../components/features/FeatureGrid.jsx'
 import CommandTeaser from '../components/site/CommandTeaser.jsx'
 import { useClipboardFeedback } from '../hooks/useClipboardFeedback.js'
 
-const INSTALL_CMD = 'npm install -g cook-furnace'
+const INSTALL_CMD = 'npx cook-furnace@latest'
 
 const aboutParagraphs = [
   'We kept switching harnesses, and every switch meant relearning the same workflow from scratch.',

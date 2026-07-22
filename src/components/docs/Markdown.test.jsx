@@ -19,7 +19,7 @@ describe('Markdown', () => {
 | \`furnace \\| test\` | [Read more](https://example.com/docs) |
 
 \`\`\`bash
-npm install -g cook-furnace
+npx cook-furnace@latest
 \`\`\``
 
     const { container } = render(<Markdown source={source} />)
@@ -37,6 +37,6 @@ npm install -g cook-furnace
     expect(link).toHaveAttribute('href', 'https://example.com/docs')
     expect(link).toHaveAttribute('target', '_blank')
     expect(screen.getByText('inline code').tagName).toBe('CODE')
-    expect(screen.getByText('npm install -g cook-furnace').closest('pre')).toBeInTheDocument()
+    expect(screen.getByText('npx cook-furnace@latest').closest('pre')).toBeInTheDocument()
   })
 })

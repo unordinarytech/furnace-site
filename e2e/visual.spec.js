@@ -37,7 +37,7 @@ async function prepare(page, path) {
 }
 
 async function waitForHomeReveal(page) {
-  const install = page.getByRole('button', { name: 'npm install -g cook-furnace' })
+  const install = page.getByRole('button', { name: 'npx cook-furnace@latest' })
   await expect.poll(() => install.evaluate((element) => getComputedStyle(element.parentElement).pointerEvents)).toBe('auto')
 }
 

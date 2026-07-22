@@ -11,10 +11,10 @@ Furnace is a terminal-first agentic coding harness. It runs an AI coding loop ag
 ## Install
 
 ```bash
-npm install -g cook-furnace
+npx cook-furnace@latest
 ```
 
-The package is named `cook-furnace`; the installed command is `furnace`.
+The first run installs Furnace in your user account and creates the persistent `furnace` command. It does not require administrator access or a global npm install. Reopen your terminal if Furnace reports that it updated your PATH.
 
 ## First Run
 
@@ -62,7 +62,7 @@ furnace --session <session-id>
 ## Update
 
 ```bash
-npm install -g cook-furnace@latest
+furnace update
 ```
 
 ## Verify Your Install

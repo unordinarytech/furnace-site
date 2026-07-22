@@ -192,7 +192,7 @@ for (const [name, routeHandler] of [
 test('copies the homepage install command', async ({ page }) => {
   await page.goto('/')
 
-  const installControl = page.getByText('npm install -g cook-furnace', { exact: true })
+  const installControl = page.getByText('npx cook-furnace@latest', { exact: true })
   const installButton = installControl.locator('..')
   await expect
     .poll(() => installButton.evaluate((element) => getComputedStyle(element).pointerEvents))
@@ -200,7 +200,7 @@ test('copies the homepage install command', async ({ page }) => {
   await installButton.click()
 
   await expect(page.getByText('Copied! Start cooking now')).toBeVisible()
-  await expect.poll(() => page.evaluate(() => window.__copiedText)).toBe('npm install -g cook-furnace')
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toBe('npx cook-furnace@latest')
 })
 
 test('copies a command from the documentation', async ({ page }) => {
@@ -209,7 +209,7 @@ test('copies a command from the documentation', async ({ page }) => {
   await page.getByRole('button', { name: 'Copy code' }).first().click()
 
   await expect(page.getByRole('button', { name: 'Copy code' }).first()).toHaveText('Copied')
-  await expect.poll(() => page.evaluate(() => window.__copiedText)).toBe('npm install -g cook-furnace')
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toBe('npx cook-furnace@latest')
 })
 
 test('keyboard activates install, theme, and documentation copy controls with visible focus', async ({ page }) => {
@@ -221,11 +221,11 @@ test('keyboard activates install, theme, and documentation copy controls with vi
   }
 
   await page.goto('/')
-  const install = page.getByRole('button', { name: 'npm install -g cook-furnace' })
+  const install = page.getByRole('button', { name: 'npx cook-furnace@latest' })
   await expect(install).toBeVisible()
   await expectKeyboardFocus(install)
   await install.press('Enter')
-  await expect.poll(() => page.evaluate(() => window.__copiedText)).toBe('npm install -g cook-furnace')
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toBe('npx cook-furnace@latest')
 
   const theme = page.getByRole('button', { name: 'Toggle color theme' })
   await expectKeyboardFocus(theme)
